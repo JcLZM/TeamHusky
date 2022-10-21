@@ -2,7 +2,7 @@
 include 'database.php';
 	class User{
 		// Login Function 
-		public function loginUser($username, $password){
+		public function login($username, $password){
 			$conn = OpenCon();
 			$query="SELECT id, first_name, last_name from user WHERE email='$username' and password='$password'";
         	$result = mysqli_query($conn,$query);
