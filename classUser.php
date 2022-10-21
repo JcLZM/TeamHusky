@@ -32,7 +32,7 @@ include 'database.php';
 				}
 	        }
 	        else{
-				$_SESSION['error'] = 'Invalid Username and Password!';
+				$_SESSION['error'] = 'Invalid Username or Password!';
 			    return false;
 			}
     	}
@@ -40,7 +40,7 @@ include 'database.php';
 		public function logout() {
 			// Destroy session and redirect to login page
 			session_unset();
-			header('Location: MainPage.php');
+			header('Location: LoginUI.php');
 		}
 		
 	}
