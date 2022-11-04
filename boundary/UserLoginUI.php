@@ -25,45 +25,41 @@
     .email {
     width: 80%;
     color: rgb(38, 50, 56);
-    font-weight: 700;
     font-size: 12px;
     letter-spacing: 1px;
     padding: 10px 60px;
     box-sizing: border-box;
     border: 0.8px solid;
     text-align: center;
-    font-family: 'Arial';
+    font-family: Arial;
     margin-bottom: 20px;
     }
 
     .pw {
     width: 80%;
     color: rgb(38, 50, 56);
-    font-weight: 700;
     font-size: 12px;
     letter-spacing: 1px;
     padding: 10px 30px;
     box-sizing: border-box;
     border: 0.8px solid;
     text-align: center;
-    font-family: 'Arial';
+    font-family: Arial;
     margin-bottom: 20px;
     }
 
-    .submit {
+    .login {
     cursor: pointer;
     color: #fff;
     background: #282120;
     border: 0;
-    padding-left: 97px;
-    padding-right: 97px;
+    width: 80%;
     padding-bottom: 10px;
     padding-top: 10px;
-    font-family: 'Arial';
+    font-family: Arial;
     font-size: 13px;
     box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
     }
-
   </style>
   <body>
     <main>
@@ -71,7 +67,7 @@
         <form>
           <input class="email" type="text" align="center" placeholder="Enter Email" name="username"><br>
           <input class="pw" type="password" align="center" placeholder=" Enter Password" name="password"><br>
-          <button class="submit" type = "submit" name = "login">
+          <button class="login" type = "submit" name = "login">
           Login
           </button><br>
         </form>       
