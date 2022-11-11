@@ -178,6 +178,9 @@
     }
 </style>
 </head>
+<?php
+function displayAdminCreateUserUI() {
+?>
 <body>
     <div class="topnav">
         <a class="active" href="#home">Home</a>
@@ -196,7 +199,7 @@
             <input class="pw" type="password" align="center" placeholder=" Enter Password" name="password"><br>
             <input class="confirmpw" type="password" align="center" placeholder=" Confirm Password" name="confirmpw"><br>
             <div class="custom-select" style="width:100%;">
-                <select>
+                <select name="role">
                 <option value="0">Select Role:</option>
                 <option value="1">System Administrator</option>
                 <option value="2">Author</option>
@@ -291,4 +294,7 @@
     document.addEventListener("click", closeAllSelect);
     </script>
 </body>
+<?php
+}
+?>
 </html>

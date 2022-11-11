@@ -115,6 +115,9 @@
     }
 </style>
 </head>
+<?php
+function displayAdminHomeUI() {
+?>
 <body>
     <div class="topnav">
         <a class="active" href="#home">Home</a>
@@ -133,10 +136,13 @@
 
     <div class="search-container">
         <form>
-            <input type="text" placeholder="Search email.." name="searchEmail">
+            <input type="text" placeholder="Search full name.." name="searchName">
             <input type="text" placeholder="Search role.." name="searchRole"><br>
             <button name="search" type="submit">Search</button>
         </form>
     </div>
 </body>
+<?php
+}
+?>
 </html>

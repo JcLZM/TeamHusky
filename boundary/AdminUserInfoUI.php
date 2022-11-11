@@ -193,6 +193,9 @@
     }
 </style>
 </head>
+<?php
+function displayAdminUserInfoUI() {
+?>
 <body>
     <div class="topnav">
         <a class="active" href="#home">Home</a>
@@ -310,4 +313,7 @@
     document.addEventListener("click", closeAllSelect);
     </script>
 </body>
+<?php
+}
+?>
 </html>
