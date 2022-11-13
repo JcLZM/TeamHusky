@@ -78,7 +78,7 @@
     margin-bottom: 20px;
     }
 
-    .email, .fullname {
+    .email, .fullname, .role {
     width: 100%;
     color: rgb(38, 50, 56);
     font-size: 12px;
@@ -102,6 +102,21 @@
     text-align: center;
     font-family: Arial;
     margin-bottom: 30px;
+    }
+
+    .status {
+    width: 10%;
+    color: rgb(38, 50, 56);
+    font-size: 12px;
+    letter-spacing: 1px;
+    padding: 10px 30px;
+    box-sizing: border-box;
+    border: 0.8px solid;
+    text-align: center;
+    font-family: Arial;
+    margin-left: 40px;
+    margin-bottom: 10px;
+    margin-top: 30px;
     }
 
     .update {
@@ -128,8 +143,7 @@
     font-family: Arial;
     font-size: 13px;
     box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
-    margin-block: 30px;
-    margin-left: 30px;
+    margin-left: 40px;
     }
 
     .custom-select {
@@ -209,11 +223,12 @@ function displayAdminUserInfoUI() {
     <div class="updateuserform-container">
         <form>
             <h2>Update User's Information</h2>
-            <input class="currentpw" type="text" align="center" placeholder="Current Password" name="currentpw" disabled><br>
+            <input class="email" type="text" align="center" placeholder="Email Address" name="username" disabled><br>
+            <input class="role" type="text" align="center" placeholder="Role" name="role" disabled><br>
+            <input class="fullname" type="text" align="center" placeholder="Full Name" name="currentname" disabled><br>
+            <input class="fullname" type="text" align="center" placeholder="Enter Full Name" name="newname"><br>
             <input class="newpw" type="password" align="center" placeholder=" Enter New Password" name="newpw"><br>
             <input class="confirmnewpw" type="password" align="center" placeholder=" Confirm New Password" name="confirmnewpw"><br>
-            <input class="email" type="text" align="center" placeholder="Enter Email" name="username"><br>
-            <input class="fullname" type="text" align="center" placeholder="Enter Full Name" name="fullname"><br>
             <div class="custom-select" style="width:100%;">
                 <select>
                 <option value="0">Select Role:</option>
@@ -226,7 +241,8 @@ function displayAdminUserInfoUI() {
             <button class="update" type = "submit" name = "update">
             Update
             </button>
-        </form>     
+        </form>
+        <input class="status" type="text" align="center" placeholder="Status" name="status" disabled><br>
         <button class="suspend" type = "submit" name = "suspend">
         Suspend User
         </button>

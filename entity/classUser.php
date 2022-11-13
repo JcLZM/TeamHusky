@@ -1,10 +1,11 @@
 <?php
 include 'database.php';
 	class User {
-		// Login Function 
+
+		// Login
 		public function login($username, $password){
 			$conn = OpenCon();
-			$query="SELECT id, email, full_name, role, status from user WHERE email='$username' and password='$password'";
+			$query="SELECT user_id, email, full_name, role, status from user WHERE email='$username' and password='$password'";
         	$result = mysqli_query($conn,$query);
 
 			$data = mysqli_fetch_array($result);
@@ -13,7 +14,7 @@ include 'database.php';
 			$_SESSION['email'] = $data['email'];
 			$_SESSION['full_name'] = $data['full_name'];
 			$_SESSION['role'] = $data['role'];
-			$_SESSION['id'] = $data['id'];
+			$_SESSION['user_id'] = $data['user_id'];
 			$_SESSION['status'] = $data['status'];
 
 			if ($count_row == 1) {
@@ -34,6 +35,5 @@ include 'database.php';
 			// Destroy session
 			session_unset();
 		}
-		
 	}
 ?>
