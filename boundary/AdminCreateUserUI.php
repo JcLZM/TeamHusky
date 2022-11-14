@@ -296,5 +296,6 @@ function displayAdminCreateUserUI() {
 </body>
 <?php
 }
+displayAdminCreateUserUI() 
 ?>
 </html>

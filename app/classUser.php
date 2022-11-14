@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 namespace App;
 include 'database.php';
 	class classUser{
@@ -51,4 +51,4 @@ include 'database.php';
 		// 	}
 		// }
 	}
-?>
+?> -->

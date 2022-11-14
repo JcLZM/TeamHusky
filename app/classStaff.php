@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 namespace App;
 use App\classUser;
 class classStaff extends classUser{
@@ -12,3 +12,4 @@ public function addMenuItemToOrders($orderId, $itemId, $quantity)
     }
 
 }
+?> -->

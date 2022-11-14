@@ -80,7 +80,7 @@ CREATE TABLE `papers` (
   `review_id` int(11) UNSIGNED DEFAULT NULL,
   `title` varchar(255) NOT NULL,
   `content` longtext NOT NULL,
-  `status` varchar(50) NOT NULL
+  `paper_status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -95,7 +95,7 @@ CREATE TABLE `reviewer` (
   `comment_id` int(11) UNSIGNED DEFAULT NULL,
   `bid_id` int(11) UNSIGNED DEFAULT NULL,
   `assign_paper_id` int(11) UNSIGNED DEFAULT NULL,
-  `workload` int(5) DEFAULT NULL
+  `reviewer_workload` int(5) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -133,14 +133,14 @@ CREATE TABLE `user` (
   `full_name` varchar(50) DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL,
   `role` varchar(255) NOT NULL,
-  `status` varchar(10) NOT NULL
+  `user_status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `email`, `full_name`, `password`, `role`, `status`) VALUES
+INSERT INTO `user` (`user_id`, `email`, `full_name`, `password`, `role`, `user_status`) VALUES
 (1, 'dniset0@people.com', 'Donica Niset', 'H9mu2M', 'System Administrator', 'Active'),
 (2, 'uwabb1@tonline.com', 'Muriel Tume', '771UqD8fZ', 'System Administrator', 'Suspend');
 

@@ -144,5 +144,6 @@ function displayAdminHomeUI() {
 </body>
 <?php
 }
+displayAdminHomeUI()
 ?>
 </html>

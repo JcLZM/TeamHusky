@@ -70,9 +70,10 @@ function displayUserLoginUI() {
 <body>
   <main>
     <div style="text-align:center; position: absolute; bottom: 50px;">
-      <form>
+      <form action="controllerUser.php" method="post">
         <input class="email" type="text" align="center" placeholder="Enter Email" name="username"><br>
         <input class="pw" type="password" align="center" placeholder=" Enter Password" name="password"><br>
+        <p align="center"><font color="red" size=3px> <?php if (isset($errorMsg)) echo $errorMsg;?></font></p><br>
         <button class="login" type = "submit" name = "login">
         Login
         </button><br>
@@ -82,5 +83,6 @@ function displayUserLoginUI() {
 </body>
 <?php
 }
+displayUserLoginUI()
 ?>
 </html>

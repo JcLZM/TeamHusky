@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 namespace App;
 use App\classUser;
 class classCustomer extends classUser{
@@ -28,12 +28,4 @@ class classCustomer extends classUser{
     }
 
 }
-
-
-
-
-
-
-
-
-
+?>-->

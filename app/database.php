@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 function OpenCon()
  {
  $dbhost = "localhost";
@@ -14,4 +14,4 @@ function CloseCon($conn)
  $conn -> close();
  }
 
-?>
+?> -->

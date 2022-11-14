@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 namespace App;
 use App\classUser;
 	class classAdmin extends classUser{
@@ -111,4 +111,4 @@ use App\classUser;
 
 	}	
 		
-?>
+?> -->

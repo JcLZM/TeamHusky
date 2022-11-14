@@ -331,5 +331,6 @@ function displayAdminUserInfoUI() {
 </body>
 <?php
 }
+displayAdminUserInfoUI()
 ?>
 </html>
