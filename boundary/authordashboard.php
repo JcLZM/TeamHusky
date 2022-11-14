@@ -116,7 +116,11 @@ function displayAuthorDashboardUI(){
             var authors = document.getElementById("authors");
             var papercontent = document.getElementById("papercontent");
             
-            //SOME CODE HERE JIAHAO LOOK AT IT
+            //SOME CODE HERE JIA HAO LOOK AT IT
+            //
+            //
+            //
+            var paperName = papername.value
             
             //also clear it
             papername.value = "";
@@ -155,10 +159,16 @@ function displayAuthorDashboardUI(){
             if (status == "Pending Review"){
                 return;
             } // if there are no reviews, end function here.
-            //submit request to database and retrieve review (content, and the reviewer)
 
+            //submit request to database and retrieve review (content, and the reviewer)
+                //JIA HAO
+                //run a query to get review
+                //SELECT * FROM REVIEWS WHERE PAPER_ID LIKE paperID(variable)
+                //reviewerid / reviewname + content + reviewer_rating
             //load it in, as a modal
-            //allow rating
+                
+
+            //allow author rating
         }
     </script>
 </head>
