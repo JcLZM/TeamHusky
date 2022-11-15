@@ -2,6 +2,48 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<?php
+function displayAdminCreateUserUI() {
+    // Declare variables for errors
+    $emailErr = '';
+    $fullnameErr = '';
+    $passwordErr = '';
+    $roleErr = '';
+
+    // Declare Variable for sticky form 
+    $email = '';
+    $fullname = '';
+    $password = '';
+    $role = '';
+
+    // Validate Session Variables from Registration Controller
+	if(isset($_SESSION["emailErr"])) {
+		$emailErr = $_SESSION["emailErr"];
+	}
+	if(isset($_SESSION["fullnameErr"])) {
+		$fullnameErr = $_SESSION["fullnameErr"];
+	}
+	if(isset($_SESSION["passwordErr"])) {
+		$passwordErr = $_SESSION["passwordErr"];
+	}
+    if(isset($_SESSION["roleErr"])) {
+		$roleErr = $_SESSION["roleErr"];
+	}
+
+    // Variables for Sticky Form 
+	if(isset($_SESSION["email"])) {
+		$email = $_SESSION["email"];
+	}
+	if(isset($_SESSION["fullname"])) {
+		$fullname = $_SESSION["fullname"];
+	}
+	if(isset($_SESSION["password"])) {
+		$password = $_SESSION["password"];
+	}
+    if(isset($_SESSION["role"])) {
+		$role = $_SESSION["role"];
+	}
+?>
 <style>
     body {
     margin: 0;
@@ -104,17 +146,26 @@
     margin-bottom: 30px;
     }
 
-    .enter {
+    .button 
+    {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 300px;
+    }
+
+    .enter, .reset {
     cursor: pointer;
     color: #fff;
     background: #282120;
     border: 0;
-    width: 100%;
+    width: 45%;
     padding-bottom: 10px;
     padding-top: 10px;
     font-family: Arial;
     font-size: 13px;
     box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+    display:inline-block;
     }
 
     .custom-select {
@@ -178,9 +229,6 @@
     }
 </style>
 </head>
-<?php
-function displayAdminCreateUserUI() {
-?>
 <body>
     <div class="topnav">
         <a class="active" href="#home">Home</a>
@@ -192,11 +240,14 @@ function displayAdminCreateUserUI() {
     </div>
 
     <div class="createuserform-container">
-        <form>
+        <form action="controllerCreateUser.php" method="POST">
             <h2>Enter User's Information</h2>
             <input class="email" type="text" align="center" placeholder="Enter Email" name="username"><br>
+            <span class="errorMsg"> <?php echo $emailErr;?></span>
             <input class="fullname" type="text" align="center" placeholder=" Enter Full Name" name="fullname"><br>
+            <span class="errorMsg"> <?php echo $fullnameErr;?></span>
             <input class="pw" type="password" align="center" placeholder=" Enter Password" name="password"><br>
+            <span class="errorMsg"> <?php echo $passwordErr;?></span>
             <input class="confirmpw" type="password" align="center" placeholder=" Confirm Password" name="confirmpw"><br>
             <div class="custom-select" style="width:100%;">
                 <select name="role">
@@ -206,10 +257,16 @@ function displayAdminCreateUserUI() {
                 <option value="3">Conference Chairman</option>
                 <option value="4">Reviewer</option>
                 </select>
+                <span class="errorMsg"> <?php echo $roleErr;?></span>
             </div>
+            <p class="button">
             <button class="enter" type = "submit" name = "enter">
             Enter
-            </button><br>
+            </button>
+            <button class="reset" type="reset" name="reset"> 
+            Reset
+            </button>
+            </p>
         </form>       
     </div>
 

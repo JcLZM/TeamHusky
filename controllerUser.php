@@ -13,12 +13,12 @@ class controllerUser {
     //login
     public function login($username, $password)
     {
-        $user = new User();
+        $user = new User;
 
         if(isset($_POST['login'])) 
         {
             //Validate Login
-            if (empty($_POST['username'])|| empty($_POST['password']))
+            if (empty($username)|| empty($password))
             {
                 $errorLogin = 'Username or Password cannot be blank!';
                 $_SESSION['errorLogin'] = $errorLogin;

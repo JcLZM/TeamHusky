@@ -5,7 +5,7 @@ include 'database.php';
 		// Login
 		public function login($username, $password){
 			$conn = OpenCon();
-			$query="SELECT user_id, email, full_name, role, status from user WHERE email='$username' and password='$password'";
+			$query="SELECT user_id, email, full_name, role, user_status from user WHERE email='$username' and password='$password'";
         	$result = mysqli_query($conn,$query);
 
 			$data = mysqli_fetch_array($result);
@@ -15,23 +15,30 @@ include 'database.php';
 			$_SESSION['full_name'] = $data['full_name'];
 			$_SESSION['role'] = $data['role'];
 			$_SESSION['user_id'] = $data['user_id'];
-			$_SESSION['status'] = $data['status'];
+			$_SESSION['user_status'] = $data['user_status'];
 
-			if ($count_row == 1) {
-				if($data['status'] != 'Suspend') {
+			if ($count_row == 1) 
+			{
+				if($data['user_status'] != 'Suspend') 
+				{
 					return true;
-				} else {
+				} 
+				else 
+				{
 					$_SESSION['error'] = 'Account has been suspended';
 					return false;
 				}
 			}
-	        else{
+	        else
+			{
 				$_SESSION['error'] = 'Invalid Username or Password!';
 			    return false;
 			}
     	}
+		
 		// Log out
-		public function logout() {
+		public function logout() 
+		{
 			// Destroy session
 			session_unset();
 		}
