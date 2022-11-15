@@ -14,7 +14,7 @@ function displayAuthorHomeUI(){
             <!-- jiahao -->
             
         </span>
-        <span style = "float:right; color:#f4f4f4;" id = "userGreeting">Hello, AUTHORNAME, AUTHORID</span>
+        <span id = "userGreeting">Hello, AUTHORNAME, AUTHORID</span>
         <!-- should load from db??-->
 
     </div>
@@ -26,6 +26,13 @@ function displayAuthorHomeUI(){
         .topnav {
             background-color: #414042;
             overflow: hidden;
+        }
+
+        #userGreeting{
+            top:3%;
+            left:80%;
+            color:#f4f4f4;
+            position:absolute;
         }
         
         /* navigation bar */
