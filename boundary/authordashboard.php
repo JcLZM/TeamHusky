@@ -10,10 +10,11 @@ function displayAuthorDashboardUI(){
         
         <span style="float:right">
             
-            <a href="#logout">Logout</a> <!-- should run logout function / close session, return to login page-->
+            <a href="#logout">Logout</a> <!-- should run logout function / close session, return to login page--> 
+            <!-- jiahao -->
             
         </span>
-        <span style = "float:right; color:#f4f4f4;">Hello, AUTHORNAME, AUTHORID</span>
+        <span style = "float:right; color:#f4f4f4;" id = "userGreeting">Hello, AUTHORNAME, AUTHORID</span>
         <!-- should load from db??-->
 
     </div>
@@ -87,7 +88,9 @@ function displayAuthorDashboardUI(){
             width: 50%;
             box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
         }
-
+        #rRadio1, #rRadio2, #rRadio3 {
+            visibility:hidden;
+        }
 
         </style>
    
@@ -95,7 +98,7 @@ function displayAuthorDashboardUI(){
 
 
 
-<body>
+<body onLoad = "loadTable()">
 
     <div class="midbutton">
         <!-- submit papers modal -->
@@ -125,112 +128,138 @@ function displayAuthorDashboardUI(){
     </div>
 
     <div class = "modal" id = "viewReview">
-        <table class ="modal-content">
+        <table class ="modal-content" style = "width:80%">
             <tr>
-                <td>Review Number</td> <!-- review id-->
-                <td>Reviewer Name</td> <!-- reviewer-->
-                <td>Review</td> <!-- score, from 3 to -3-->
-                <td>Rating</td>
+                <th>Review Number</td> <!-- review id-->
+                <th>Reviewer Name</td> <!-- reviewer-->
+                <th>Review</td> <!-- score, from 3 to -3-->
+                <th>Rating</td>
+                <th>Rate this Review</td>
             </tr>
             <tr> 
-                <td id = "rNo1">Review 1</td>
-                <td id = "rName1">John Smith</td>
-                <td id = "rReview1">eggplants</td>
-                <td id = "rScore1">1</td>
+                <td id = "rNo1"></td>
+                <td id = "rName1"></td>
+                <td id = "rReview1"></td>
+                <td id = "rScore1"></td>
+                <td id = "rRadio1">
+                    <input type="radio" id="1" name="review1rating" value = "1"> <label for="1">1</label><br>
+                    <input type="radio" id="2" name="review1rating" value = "2"> <label for="2">2</label><br>
+                    <input type="radio" id="3" name="review1rating" value = "3"> <label for="3">3</label><br>
+                    <input type="radio" id="4" name="review1rating" value = "4"> <label for="4">4</label><br>
+                    <input type="radio" id="5" name="review1rating" value = "5"> <label for="5">5</label>
+                </td>
             </tr>
             <tr> 
-                <td id = "rNo2">Review 2</td>
-                <td id = "rName2">John Smith</td>
-                <td id = "rReview2">-1</td>
-                <td id = "rScore2">-1</td>
+                <td id = "rNo2"></td>
+                <td id = "rName2"></td>
+                <td id = "rReview2"></td>
+                <td id = "rScore2"></td>
+                <td id = "rRadio2">
+                    <input type="radio" id="1" name="review2rating" value = "1"> <label for="1">1</label><br>
+                    <input type="radio" id="2" name="review2rating" value = "2"> <label for="2">2</label><br>
+                    <input type="radio" id="3" name="review2rating" value = "3"> <label for="3">3</label><br>
+                    <input type="radio" id="4" name="review2rating" value = "4"> <label for="4">4</label><br>
+                    <input type="radio" id="5" name="review2rating" value = "5"> <label for="5">5</label>
+                </td>
             </tr>
             <tr> 
-                <td id = "rNo3">Review 3</td>
-                <td id = "rName3">John Smith</td>
-                <td id = "rReview3">2</td>
-                <td id = "rScore3">2</td>
+                <td id = "rNo3"></td>
+                <td id = "rName3"></td>
+                <td id = "rReview3"></td>
+                <td id = "rScore3"></td>
+                <td id = "rRadio3">
+                    <input type="radio" id="1" name="review3rating" value = "1"> <label for="1">1</label><br>
+                    <input type="radio" id="2" name="review3rating" value = "2"> <label for="2">2</label><br>
+                    <input type="radio" id="3" name="review3rating" value = "3"> <label for="3">3</label><br>
+                    <input type="radio" id="4" name="review3rating" value = "4"> <label for="4">4</label><br>
+                    <input type="radio" id="5" name="review3rating" value = "5"> <label for="5">5</label>
+                </td>
             </tr>
+            <tr>
+                <td colspan = "3"><button onClick = "confirmViewReview()">Confirm</button></td> <!-- both should clear all fields.-->
+                <td colspan = "2"><button onClick = "cancelViewReview()">Cancel</button></td>
         </table>
+
     </div>
 
     <div class="mainbox">
         <table>
             <tr> 
-                <td>Paper Number</td>
-                <td>Paper Title</td>
-                <td>Author(s)</td>
-                <td>Status</td> 
-                <td>Reviews</td>
+                <th>Paper Number</td>
+                <th>Paper Title</td>
+                <th>Author(s)</td>
+                <th>Status</td> 
+                <th>Reviews</td>
              </tr>
             <tr> 
-                <td id = "num1">0000017</td> <!--Paper number from database-->
-                <td id = "name1">Email: a vector of contamination</td><!-- Paper title from database-->
-                <td id = "author1">name of author</td><!-- Author(s)-->
-                <td id = "status1">Reviewed</td><!-- status of paper-->
-                <td id = "button1" onClick="viewReviews(this.id)">None</td><!-- button should check status -->
+                <td id = "num1"></td> <!--Paper number from database-->
+                <td id = "name1"></td><!-- Paper title from database-->
+                <td id = "author1"></td><!-- Author(s)-->
+                <td id = "status1"></td><!-- status of paper-->
+                <td id = "button1" onClick="viewReviews(this.id)" style="visibility:hidden"><button>Click to view</button></td><!-- button should check status -->
             </tr>
             <tr> 
-                <td id = "num2">0000027</td> <!--Paper number from database-->
-                <td id = "name2">Email: a vector of contamination</td><!-- Paper title from database-->
-                <td id = "author2">name of author</td><!-- Author(s)-->
-                <td id = "status2">Reviewed</td><!-- status of paper-->
-                <td id = "button2" onClick="viewReviews(this.id)"><button>click to view</button></td><!-- button should check status -->
+                <td id = "num2"></td> <!--Paper number from database-->
+                <td id = "name2"></td><!-- Paper title from database-->
+                <td id = "author2"></td><!-- Author(s)-->
+                <td id = "status2"></td><!-- status of paper-->
+                <td id = "button2" onClick="viewReviews(this.id)" style="visibility:hidden"><button>Click to view</button></td><!-- button should check status -->
                 <!-- should pull reviews from db-->
             </tr>
             <tr> 
-                <td id = "num3">0000037</td> <!--Paper number from database-->
-                <td id = "name3">Email: a vector of contamination</td><!-- Paper title from database-->
-                <td id = "author3">name of author</td><!-- Author(s)-->
-                <td id = "status3">Reviewed</td><!-- status of paper-->
-                <td id = "button3" onClick="viewReviews(this.id)"><button>click to view</button></td><!-- button should check status -->
+                <td id = "num3"></td> <!--Paper number from database-->
+                <td id = "name3"></td><!-- Paper title from database-->
+                <td id = "author3"></td><!-- Author(s)-->
+                <td id = "status3"></td><!-- status of paper-->
+                <td id = "button3" onClick="viewReviews(this.id)" style="visibility:hidden"><button>Click to view</button></td><!-- button should check status -->
                 <!-- should pull reviews from db-->
             </tr>
             <tr> 
-                <td id = "num4">0000047</td> <!--Paper number from database-->
-                <td id = "name4">Email: a vector of contamination</td><!-- Paper title from database-->
-                <td id = "author4">name of author</td><!-- Author(s)-->
-                <td id = "status4">Reviewed</td><!-- status of paper-->
-                <td id = "button4" onClick="viewReviews(this.id)"><button>click to view</button></td><!-- button should check status -->
+                <td id = "num4"></td> <!--Paper number from database-->
+                <td id = "name4"></td><!-- Paper title from database-->
+                <td id = "author4"></td><!-- Author(s)-->
+                <td id = "status4"></td><!-- status of paper-->
+                <td id = "button4" onClick="viewReviews(this.id)" style="visibility:hidden"><button>Click to view</button></td><!-- button should check status -->
                 <!-- should pull reviews from db-->
             </tr>
             <tr> 
-                <td id = "num5">0000057</td> <!--Paper number from database-->
-                <td id = "name5">Email: a vector of contamination</td><!-- Paper title from database-->
-                <td id = "author5">name of author</td><!-- Author(s)-->
-                <td id = "status5">Pending Review</td><!-- status of paper-->
-                <td id = "button5" onClick="viewReviews(this.id)"><button>click to view</button></td><!-- button should check status -->
+                <td id = "num5"></td> <!--Paper number from database-->
+                <td id = "name5"></td><!-- Paper title from database-->
+                <td id = "author5"></td><!-- Author(s)-->
+                <td id = "status5"></td><!-- status of paper-->
+                <td id = "button5" onClick="viewReviews(this.id)" style="visibility:hidden"><button>Click to view</button></td><!-- button should check status -->
                 <!-- should pull reviews from db-->
             </tr>
             <tr> 
-                <td id = "num6">0000067</td> <!--Paper number from database-->
-                <td id = "name6">Email: a vector of contamination</td><!-- Paper title from database-->
-                <td id = "author6">name of author</td><!-- Author(s)-->
-                <td id = "status6">Pending Review</td><!-- status of paper-->
-                <td id = "button6" onClick="viewReviews(this.id)"><button>click to view</button></td><!-- button should check status -->
+                <td id = "num6"></td> <!--Paper number from database-->
+                <td id = "name6"></td><!-- Paper title from database-->
+                <td id = "author6"></td><!-- Author(s)-->
+                <td id = "status6"></td><!-- status of paper-->
+                <td id = "button6" onClick="viewReviews(this.id)" style="visibility:hidden"><button>Click to view</button></td><!-- button should check status -->
                 <!-- should pull reviews from db-->
             </tr>
             <tr> 
-                <td id = "num7">0000067</td> <!--Paper number from database-->
-                <td id = "name7">Email: a vector of contamination</td><!-- Paper title from database-->
-                <td id = "author7">name of author</td><!-- Author(s)-->
-                <td id = "status7">Pending Review</td><!-- status of paper-->
-                <td id = "button7" onClick="viewReviews(this.id)"><button>click to view</button></td><!-- button should check status -->
+                <td id = "num7"></td> <!--Paper number from database-->
+                <td id = "name7"></td><!-- Paper title from database-->
+                <td id = "author7"></td><!-- Author(s)-->
+                <td id = "status7"></td><!-- status of paper-->
+                <td id = "button7" onClick="viewReviews(this.id)" style="visibility:hidden"><button>Click to view</button></td><!-- button should check status -->
                 <!-- should pull reviews from db-->
             </tr>
             <tr> 
-                <td id = "num8">0000077</td> <!--Paper number from database-->
-                <td id = "name8">Email: a vector of contamination</td><!-- Paper title from database-->
-                <td id = "author8">name of author</td><!-- Author(s)-->
-                <td id = "status8">Pending Review</td><!-- status of paper-->
-                <td id = "button8" onClick="viewReviews(this.id)"><button>click to view</button></td><!-- button should check status -->
+                <td id = "num8"></td> <!--Paper number from database-->
+                <td id = "name8"></td><!-- Paper title from database-->
+                <td id = "author8"></td><!-- Author(s)-->
+                <td id = "status8"></td><!-- status of paper-->
+                <td id = "button8" onClick="viewReviews(this.id)" style="visibility:hidden"><button>Click to view</button></td><!-- button should check status -->
                 <!-- should pull reviews from db-->
             </tr>
             <tr> 
-                <td id = "num9">0000087</td> <!--Paper number from database-->
-                <td id = "name9">Email: a vector of contamination</td><!-- Paper title from database-->
-                <td id = "author9">name of author</td><!-- Author(s)-->
-                <td id = "status9">Pending Review</td><!-- status of paper-->
-                <td id = "button9" onClick="viewReviews(this.id)"><button>click to view</button></td><!-- button should check status -->
+                <td id = "num9"></td> <!--Paper number from database-->
+                <td id = "name9"></td><!-- Paper title from database-->
+                <td id = "author9"></td><!-- Author(s)-->
+                <td id = "status9"></td><!-- status of paper-->
+                <td id = "button9" onClick="viewReviews(this.id)" style="visibility:hidden"><button>Click to view</button></td><!-- button should check status -->
                 <!-- should pull reviews from db-->
             </tr>
         </table>
@@ -297,6 +326,8 @@ function displayAuthorDashboardUI(){
 
         //Click to view reviews function
         
+        var numberOfReviews = 0; //global
+
         function viewReviews(buttonID){
             //1.Get Paper Number(Should have been loaded in page.)
             var number = buttonID.substr(buttonID.length - 1);
@@ -307,7 +338,7 @@ function displayAuthorDashboardUI(){
             var statusNum = "status" + number
             var status = document.getElementById(statusNum).innerText
             if (status == "Pending Review"){
-                alert("wrong");
+                //alert("wrong");
                 return;
             } // if there are no reviews, end function here.
 
@@ -328,10 +359,11 @@ function displayAuthorDashboardUI(){
                 var review;
                 var reviewerRating;
 
-                var numberOfReviews;
                 //for testing vvvvvv
-                numberOfReviews = 1;
-                const array1 = ["00222011", 00028732, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 3];
+                numberOfReviews = 2;
+                const array1 = ["00222011", "00028732", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 3];
+                const array2 = ["00187171", "08987872", "Four score and seven years ago our fathers brought forth, upon this continent, a new nation, conceived in liberty, and dedicated to the proposition that all men are created equal.", -2]
+                const array3 = ["","","",""]
                 //for testing ^^^^^
             //query should return multiple results
                 //populate the table with query
@@ -364,6 +396,7 @@ function displayAuthorDashboardUI(){
             document.getElementById("rName1").innerText = array1[1]
             document.getElementById("rScore1").innerText = array1[3]
             document.getElementById("rReview1").innerText = array1[2]
+            document.getElementById("rRadio1").style.visibility = "visible"
             //alert(array1[0])
         }
 
@@ -372,6 +405,7 @@ function displayAuthorDashboardUI(){
             document.getElementById("rName2").innerText = array2[1]
             document.getElementById("rScore2").innerText = array2[3]
             document.getElementById("rReview2").innerText = array2[2]
+            document.getElementById("rRadio2").style.visibility = "visible"
         }
 
         function showReview3(array3){
@@ -379,9 +413,184 @@ function displayAuthorDashboardUI(){
             document.getElementById("rName3").innerText = array3[1]
             document.getElementById("rScore3").innerText = array3[3]
             document.getElementById("rReview3").innerText = array3[2]
+            document.getElementById("rRadio3").style.visibility = "visible"
         }
 
+        function clearViewReview(){
+            document.getElementById("rNo1").innerText = ""
+            document.getElementById("rName1").innerText = ""
+            document.getElementById("rScore1").innerText = ""
+            document.getElementById("rReview1").innerText = ""
+            document.getElementById("rRadio1").style.visibility = "hidden"
+            document.getElementById("rNo2").innerText = ""
+            document.getElementById("rName2").innerText = ""
+            document.getElementById("rScore2").innerText = ""
+            document.getElementById("rReview2").innerText = ""
+            document.getElementById("rRadio2").style.visibility = "hidden"
+            document.getElementById("rNo3").innerText = ""
+            document.getElementById("rName3").innerText = ""
+            document.getElementById("rScore3").innerText = ""
+            document.getElementById("rReview3").innerText = ""
+            document.getElementById("rRadio3").style.visibility = "hidden"
+        }
+
+        function cancelViewReview(){
+            clearViewReview()
+            //hide modal
+            var popup = document.getElementById("viewReview");
+            popup.style.display = "none";
+        }
+
+        function findValueOfRadio(array){
+            for (let i = 0; i < array.length; i++){
+                if (array[i].checked){
+                    return array[i].value;
+                }
+            }
+        }
+
+        function confirmViewReview(){
+            
+            switch(numberOfReviews){
+                    case 3:
+                        var radio3 = document.getElementsByName("review3rating")
+                        rating3 = findValueOfradio(radio3)
+                        reviewNum3 = document.getElementById("rNo3").innerText
+                        //jiahao run some code here to add rating3/2/1 to database. reviewNum3/2/1 is the id of the review in database 
+                    case 2:
+                        var radio2 = document.getElementsByName("review2rating")
+                        rating2 = findValueOfRadio(radio2)
+                        reviewNum2 = document.getElementById("rNo2").innerText
+                    case 1:
+                        var radio1 = document.getElementsByName("review1rating")         
+                        rating1 = findValueOfRadio(radio1)
+                        reviewNum1 = document.getElementById("rNo1").innerText
+                    break;
+                    default:
+                }
+            clearViewReview()
+            var popup = document.getElementById("viewReview");
+            popup.style.display = "none";
+        }
         
+        function populate9(array){
+            document.getElementById("num9").innerText = array[0]
+            document.getElementById("name9").innerText = array[1]
+            document.getElementById("author9").innerText = array[2]
+            document.getElementById("status9").innerText = array[3]
+            document.getElementById("button9").style.visibility = "visible"
+        }
+
+        function populate8(array){
+            document.getElementById("num8").innerText = array[0]
+            document.getElementById("name8").innerText = array[1]
+            document.getElementById("author8").innerText = array[2]
+            document.getElementById("status8").innerText = array[3]
+            document.getElementById("button8").style.visibility = "visible"
+        }
+
+        function populate7(array){
+            document.getElementById("num7").innerText = array[0]
+            document.getElementById("name7").innerText = array[1]
+            document.getElementById("author7").innerText = array[2]
+            document.getElementById("status7").innerText = array[3]
+            document.getElementById("button7").style.visibility = "visible"
+        }
+
+        function populate6(array){
+            document.getElementById("num6").innerText = array[0]
+            document.getElementById("name6").innerText = array[1]
+            document.getElementById("author6").innerText = array[2]
+            document.getElementById("status6").innerText = array[3]
+            document.getElementById("button6").style.visibility = "visible"
+        }
+
+        function populate5(array){
+            document.getElementById("num5").innerText = array[0]
+            document.getElementById("name5").innerText = array[1]
+            document.getElementById("author5").innerText = array[2]
+            document.getElementById("status5").innerText = array[3]
+            document.getElementById("button5").style.visibility = "visible"
+        }
+
+        function populate4(array){
+            document.getElementById("num4").innerText = array[0]
+            document.getElementById("name4").innerText = array[1]
+            document.getElementById("author4").innerText = array[2]
+            document.getElementById("status4").innerText = array[3]
+            document.getElementById("button4").style.visibility = "visible"
+        }
+
+        function populate3(array){
+            document.getElementById("num3").innerText = array[0]
+            document.getElementById("name3").innerText = array[1]
+            document.getElementById("author3").innerText = array[2]
+            document.getElementById("status3").innerText = array[3]
+            document.getElementById("button3").style.visibility = "visible"
+        }
+        
+        function populate2(array){
+            document.getElementById("num2").innerText = array[0]
+            document.getElementById("name2").innerText = array[1]
+            document.getElementById("author2").innerText = array[2]
+            document.getElementById("status2").innerText = array[3]
+            document.getElementById("button2").style.visibility = "visible"
+        }
+
+        function populate1(array){
+            document.getElementById("num1").innerText = array[0]
+            document.getElementById("name1").innerText = array[1]
+            document.getElementById("author1").innerText = array[2]
+            document.getElementById("status1").innerText = array[3]
+            document.getElementById("button1").style.visibility = "visible"
+        }
+
+        function loadTable(){
+            //Jiahao get data from database
+            //need paper number that matches authorid
+            //SELECT * from papers where authorid == xxxx
+            
+            //Also Load Author Name and ID for top bar display
+            var greeting = document.getElementById("userGreeting")
+            var authorName = "John Smith"
+            var authorId = "00028373"
+            greeting.innerText = "Hello, " + authorName + ", " + authorId
+
+            // store in array if possible
+            //should get PaperNumber, Title, Author(s), Status
+            //authors can just be 1 author for now.
+            var numberOfPapers = 3;
+            if (numberOfPapers > 9){
+                numberOfPapers = 9
+            }
+
+            //FOR TESTING vvvvvvvvvv
+            const array1 = ["09094328", "Emails: A vector of contamination", "John Smith", "Pending Review"]
+            const array2 = ["94882394", "Tomatoes: Vegetable or Fruit?", "John Smith, Ellis Snow", "Reviewed"]
+            const array3 = ["00000178", "Lorem, Ipsum, Dolor", "John Smith", "Pending Review"]
+            //FOR TESTING ^^^^^^^^^^^
+            switch(numberOfPapers){
+                case 9:
+                    populate9(array9)
+                case 8:
+                    populate8(array8)
+                case 7:
+                    populate7(array7)
+                case 6:
+                    populate6(array6)
+                case 5:
+                    populate5(array5)
+                case 4:
+                    populate4(array4)
+                case 3:
+                    populate3(array3)
+                case 2:
+                    populate2(array2)
+                case 1:
+                    populate1(array1)
+            }
+
+        }
     </script>
 </body>
 <?php
