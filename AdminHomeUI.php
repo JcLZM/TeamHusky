@@ -114,14 +114,15 @@
     cursor: pointer;
     }
 </style>
+<title>Admin Home Page</title>
 </head>
 <?php
 function displayAdminHomeUI() {
 ?>
 <body>
     <div class="topnav">
-        <a class="active" href="#home">Home</a>
-        <a href="#news">Create User</a>
+        <a class="active" href="AdminHomeUI.php">Home</a>
+        <a href="AdminCreateUserUI.php">Create User</a>
         <h1>TeamHusky Research Conference</h1>
         <button class="logout" type = "submit" name = "logout">
             Log Out
