@@ -109,9 +109,7 @@ function displayReviewerHomeUI(){
    
 </head>
 
-
-
-<body onLoad = "onLoad()">
+<body onLoad="onLoad()">
 
     <div class="tableModeSetter">
         <button onClick = "showAssignedPapers()">Show assigned papers</button>&nbsp;&nbsp;&nbsp;
@@ -140,52 +138,33 @@ function displayReviewerHomeUI(){
     </div>
 
     <div class = "modal" id = "viewReview">
-        <table class ="modal-content" style = "width:80%">
+        <table class ="modal-content" style = "width:60%; top:25%">
             <tr>
-                <th>Review Number</td> <!-- review id-->
-                <th>Reviewer Name</td> <!-- reviewer-->
-                <th>Review</td> <!-- score, from 3 to -3-->
-                <th>Rating</td>
-                <th>Rate this Review</td>
+                <th>Paper Title</td> <!-- paper title-->
+                <th>Paper</td> <!-- paper content-->
+                
             </tr>
             <tr> 
-                <td id = "rNo1"></td>
-                <td id = "rName1"></td>
-                <td id = "rReview1"></td>
-                <td id = "rScore1"></td>
-                <td id = "rRadio1">
-                    <input type="radio" id="1" name="review1rating" value = "1"> <label for="1">1</label><br>
-                    <input type="radio" id="2" name="review1rating" value = "2"> <label for="2">2</label><br>
-                    <input type="radio" id="3" name="review1rating" value = "3"> <label for="3">3</label><br>
-                    <input type="radio" id="4" name="review1rating" value = "4"> <label for="4">4</label><br>
-                    <input type="radio" id="5" name="review1rating" value = "5"> <label for="5">5</label>
-                </td>
+                <td id = "rTitle1"></td>
+                <td id = "rContent1"></td>
+                
             </tr>
-            <tr> 
-                <td id = "rNo2"></td>
-                <td id = "rName2"></td>
-                <td id = "rReview2"></td>
-                <td id = "rScore2"></td>
-                <td id = "rRadio2">
-                    <input type="radio" id="1" name="review2rating" value = "1"> <label for="1">1</label><br>
-                    <input type="radio" id="2" name="review2rating" value = "2"> <label for="2">2</label><br>
-                    <input type="radio" id="3" name="review2rating" value = "3"> <label for="3">3</label><br>
-                    <input type="radio" id="4" name="review2rating" value = "4"> <label for="4">4</label><br>
-                    <input type="radio" id="5" name="review2rating" value = "5"> <label for="5">5</label>
-                </td>
+            <tr>
+                <td>Your Review: </td>
+            <td id = "rReview1"><textArea style = "height:200px;width:1000px"></textArea></td>
             </tr>
-            <tr> 
-                <td id = "rNo3"></td>
-                <td id = "rName3"></td>
-                <td id = "rReview3"></td>
-                <td id = "rScore3"></td>
-                <td id = "rRadio3">
-                    <input type="radio" id="1" name="review3rating" value = "1"> <label for="1">1</label><br>
-                    <input type="radio" id="2" name="review3rating" value = "2"> <label for="2">2</label><br>
-                    <input type="radio" id="3" name="review3rating" value = "3"> <label for="3">3</label><br>
-                    <input type="radio" id="4" name="review3rating" value = "4"> <label for="4">4</label><br>
-                    <input type="radio" id="5" name="review3rating" value = "5"> <label for="5">5</label>
-                </td>
+            <tr>
+                <td>Rating:</td>
+                <td>    
+                    <select name="reviewRating" id="reviewRating">
+                        <option value="3">Strong Accept (3)</option>
+                        <option value="2">Accept (2)</option>
+                        <option value="1">Weak Accept (1)</option>    
+                        <option value="0" selected="selected">Borderline (0)</option>
+                        <option value="-1">Weak Reject (-1)</option>
+                        <option value="-2">Reject (-2)</option>
+                        <option value="-3">Strong Reject (-3)</option>
+                    </select>
             </tr>
             <tr>
                 <td colspan = "3"><button onClick = "confirmViewReview()">Confirm</button></td> <!-- both should clear all fields.-->
@@ -208,14 +187,14 @@ function displayReviewerHomeUI(){
                 <td id = "name1"></td><!-- Paper title from database-->
                 <td id = "author1"></td><!-- Author(s)-->
                 <td id = "status1"></td><!-- status of paper-->
-                <td id = "button1" onClick="viewReviews(this.id)" style="visibility:hidden"><button>Click to view</button></td><!-- button should check status -->
+                <td id = "button1" onClick="openReviewInterface(this.id)" style="visibility:hidden"><button>Click to review</button></td><!-- button should check status -->
             </tr>
             <tr> 
                 <td id = "num2"></td> <!--Paper number from database-->
                 <td id = "name2"></td><!-- Paper title from database-->
                 <td id = "author2"></td><!-- Author(s)-->
                 <td id = "status2"></td><!-- status of paper-->
-                <td id = "button2" onClick="viewReviews(this.id)" style="visibility:hidden"><button>Click to view</button></td><!-- button should check status -->
+                <td id = "button2" onClick="openReviewInterface(this.id)" style="visibility:hidden"><button>Click to review</button></td><!-- button should check status -->
                 <!-- should pull reviews from db-->
             </tr>
             <tr> 
@@ -223,7 +202,7 @@ function displayReviewerHomeUI(){
                 <td id = "name3"></td><!-- Paper title from database-->
                 <td id = "author3"></td><!-- Author(s)-->
                 <td id = "status3"></td><!-- status of paper-->
-                <td id = "button3" onClick="viewReviews(this.id)" style="visibility:hidden"><button>Click to view</button></td><!-- button should check status -->
+                <td id = "button3" onClick="openReviewInterface(this.id)" style="visibility:hidden"><button>Click to review</button></td><!-- button should check status -->
                 <!-- should pull reviews from db-->
             </tr>
             <tr> 
@@ -231,7 +210,7 @@ function displayReviewerHomeUI(){
                 <td id = "name4"></td><!-- Paper title from database-->
                 <td id = "author4"></td><!-- Author(s)-->
                 <td id = "status4"></td><!-- status of paper-->
-                <td id = "button4" onClick="viewReviews(this.id)" style="visibility:hidden"><button>Click to view</button></td><!-- button should check status -->
+                <td id = "button4" onClick="openReviewInterface(this.id)" style="visibility:hidden"><button>Click to review</button></td><!-- button should check status -->
                 <!-- should pull reviews from db-->
             </tr>
             <tr> 
@@ -239,7 +218,7 @@ function displayReviewerHomeUI(){
                 <td id = "name5"></td><!-- Paper title from database-->
                 <td id = "author5"></td><!-- Author(s)-->
                 <td id = "status5"></td><!-- status of paper-->
-                <td id = "button5" onClick="viewReviews(this.id)" style="visibility:hidden"><button>Click to view</button></td><!-- button should check status -->
+                <td id = "button5" onClick="openReviewInterface(this.id)" style="visibility:hidden"><button>Click to review</button></td><!-- button should check status -->
                 <!-- should pull reviews from db-->
             </tr>
             <tr> 
@@ -247,7 +226,7 @@ function displayReviewerHomeUI(){
                 <td id = "name6"></td><!-- Paper title from database-->
                 <td id = "author6"></td><!-- Author(s)-->
                 <td id = "status6"></td><!-- status of paper-->
-                <td id = "button6" onClick="viewReviews(this.id)" style="visibility:hidden"><button>Click to view</button></td><!-- button should check status -->
+                <td id = "button6" onClick="openReviewInterface(this.id)" style="visibility:hidden"><button>Click to review</button></td><!-- button should check status -->
                 <!-- should pull reviews from db-->
             </tr>
             <tr> 
@@ -255,7 +234,7 @@ function displayReviewerHomeUI(){
                 <td id = "name7"></td><!-- Paper title from database-->
                 <td id = "author7"></td><!-- Author(s)-->
                 <td id = "status7"></td><!-- status of paper-->
-                <td id = "button7" onClick="viewReviews(this.id)" style="visibility:hidden"><button>Click to view</button></td><!-- button should check status -->
+                <td id = "button7" onClick="openReviewInterface(this.id)" style="visibility:hidden"><button>Click to review</button></td><!-- button should check status -->
                 <!-- should pull reviews from db-->
             </tr>
             <tr> 
@@ -263,7 +242,7 @@ function displayReviewerHomeUI(){
                 <td id = "name8"></td><!-- Paper title from database-->
                 <td id = "author8"></td><!-- Author(s)-->
                 <td id = "status8"></td><!-- status of paper-->
-                <td id = "button8" onClick="viewReviews(this.id)" style="visibility:hidden"><button>Click to view</button></td><!-- button should check status -->
+                <td id = "button8" onClick="openReviewInterface(this.id)" style="visibility:hidden"><button>Click to review</button></td><!-- button should check status -->
                 <!-- should pull reviews from db-->
             </tr>
             <tr> 
@@ -271,7 +250,7 @@ function displayReviewerHomeUI(){
                 <td id = "name9"></td><!-- Paper title from database-->
                 <td id = "author9"></td><!-- Author(s)-->
                 <td id = "status9"></td><!-- status of paper-->
-                <td id = "button9" onClick="viewReviews(this.id)" style="visibility:hidden"><button>Click to view</button></td><!-- button should check status -->
+                <td id = "button9" onClick="openReviewInterface(this.id)" style="visibility:hidden"><button>Click to review</button></td><!-- button should check status -->
                 <!-- should pull reviews from db-->
             </tr>
         </table>
@@ -330,116 +309,46 @@ function displayReviewerHomeUI(){
 
         //Click to view reviews function
         
-        var numberOfReviews = 0; //global
+        var paperID = null;
+        var reviewerName = null;
+        var reviewerID = null;
 
-        function viewReviews(buttonID){
+        function openReviewInterface(buttonID){
             //1.Get Paper Number(Should have been loaded in page.)
             var number = buttonID.substr(buttonID.length - 1);
-            //alert(number)
             var paperNum = "num" + number
-            var paperID = document.getElementById(paperNum).innerText
-            //alert(paperID)
+            paperID = document.getElementById(paperNum).innerText
             var statusNum = "status" + number
-            var status = document.getElementById(statusNum).innerText
-            if (status == "Pending Review"){
-                //alert("wrong");
-                return;
-            } // if there are no reviews, end function here.
 
-            //submit request to database and retrieve review (content, and the reviewer)
+            //submit request to database get paper content
                 //JIA HAO
                 //run a query to get review
-                //SELECT * FROM REVIEWS WHERE PAPER_ID LIKE paperID(variable)
-                //reviewerid / reviewname + content + reviewer_rating
-                //(FOR EACH REVIEW)
+                //SELECT * FROM PAPER WHERE PAPER_ID LIKE paperID(paperNum)
+                //paper title and content itself i guess, paperID stores in paperNum atm?
 
-                //store in arrays?
-                //const array1 = [reviewNo, reviewerNo, review, reviewerRating]
-                //variables
-                //current values for testing
-                var reviewNo;
-                var reviewerNo;
-                var reviewerName;
-                var review;
-                var reviewerRating;
-
-                //for testing vvvvvv
-                numberOfReviews = 2;
-                const array1 = ["00222011", "00028732", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 3];
-                const array2 = ["00187171", "08987872", "Four score and seven years ago our fathers brought forth, upon this continent, a new nation, conceived in liberty, and dedicated to the proposition that all men are created equal.", -2]
-                const array3 = ["","","",""]
+                //place contents in an Array?
+                //title, content, show review box.
+                var paper = ["Give Me Liberty or Give Me Death!", "The battle, sir, is not to the strong alone; it is to the vigilant, the active, the brave. Besides, sir, we have no election. If we were base enough to desire it, it is now too late to retire from the contest. There is no retreat but in submission and slavery! Our chains are forged! Their clanking may be heard on the plains of Boston! The war is inevitable -- and let it come! I repeat it, sir, let it come! It is in vain, sir, to extenuate the matter. Gentlemen may cry, 'Peace! Peace!' -- but there is no peace. The war is actually begun! The next gale that sweeps from the north will bring to our ears the clash of resounding arms! Our brethren are already in the field! Why stand we here idle? What is it that gentlemen wish? What would they have? Is life so dear, or peace so sweet, as to be purchased at the price of chains and slavery? Forbid it, Almighty God! I know not what course others may take; but as for me, give me liberty, or give me death!"]
                 //for testing ^^^^^
             //query should return multiple results
-                //populate the table with query
-                //limit to 3 reviews per paper shown?    
-                if (numberOfReviews >= 3){
-                    numberOfReviews = 3;
-                }
-                //alert(numberOfReviews)
-                switch(numberOfReviews){
-                    case 3:
-                        showReview3(array3);
-                    case 2:
-                        showReview2(array2);
-                    case 1:
-                        showReview1(array1);
-                        showReviewModal();
-                    break;
-                    default:
-                }
+                showReview(paper);
+                showViewReviewModal();
             //allow author rating
         }
 
-        function showReviewModal(){
+        function showViewReviewModal(){
             var popup = document.getElementById("viewReview");
             popup.style.display = "block";
         }
 
-        function showReview1(array1){
-            document.getElementById("rNo1").innerText = array1[0]
-            document.getElementById("rName1").innerText = array1[1]
-            document.getElementById("rScore1").innerText = array1[3]
-            document.getElementById("rReview1").innerText = array1[2]
-            document.getElementById("rRadio1").style.visibility = "visible"
+        function showReview(array1){
+            document.getElementById("rTitle1").innerText = array1[0]
+            document.getElementById("rContent1").innerText = array1[1]
             //alert(array1[0])
         }
 
-        function showReview2(array2){
-            document.getElementById("rNo2").innerText = array2[0]
-            document.getElementById("rName2").innerText = array2[1]
-            document.getElementById("rScore2").innerText = array2[3]
-            document.getElementById("rReview2").innerText = array2[2]
-            document.getElementById("rRadio2").style.visibility = "visible"
-        }
-
-        function showReview3(array3){
-            document.getElementById("rNo3").innerText = array3[0]
-            document.getElementById("rName3").innerText = array3[1]
-            document.getElementById("rScore3").innerText = array3[3]
-            document.getElementById("rReview3").innerText = array3[2]
-            document.getElementById("rRadio3").style.visibility = "visible"
-        }
-
-        function clearViewReview(){
-            document.getElementById("rNo1").innerText = ""
-            document.getElementById("rName1").innerText = ""
-            document.getElementById("rScore1").innerText = ""
-            document.getElementById("rReview1").innerText = ""
-            document.getElementById("rRadio1").style.visibility = "hidden"
-            document.getElementById("rNo2").innerText = ""
-            document.getElementById("rName2").innerText = ""
-            document.getElementById("rScore2").innerText = ""
-            document.getElementById("rReview2").innerText = ""
-            document.getElementById("rRadio2").style.visibility = "hidden"
-            document.getElementById("rNo3").innerText = ""
-            document.getElementById("rName3").innerText = ""
-            document.getElementById("rScore3").innerText = ""
-            document.getElementById("rReview3").innerText = ""
-            document.getElementById("rRadio3").style.visibility = "hidden"
-        }
 
         function cancelViewReview(){
-            clearViewReview()
             //hide modal
             var popup = document.getElementById("viewReview");
             popup.style.display = "none";
@@ -454,29 +363,16 @@ function displayReviewerHomeUI(){
         }
 
         function confirmViewReview(){
-            
-            switch(numberOfReviews){
-                    case 3:
-                        var radio3 = document.getElementsByName("review3rating")
-                        rating3 = findValueOfradio(radio3)
-                        reviewNum3 = document.getElementById("rNo3").innerText
-                        //jiahao add rating3 to database. reviewNum3 is the id of the review in database 
-                    case 2:
-                        var radio2 = document.getElementsByName("review2rating")
-                        rating2 = findValueOfRadio(radio2)
-                        reviewNum2 = document.getElementById("rNo2").innerText
-                        //jiahao add rating2 to database. reviewNum2 is the id of the review in database 
-                    case 1:
-                        var radio1 = document.getElementsByName("review1rating")         
-                        rating1 = findValueOfRadio(radio1)
-                        reviewNum1 = document.getElementById("rNo1").innerText
-                        //same as above
-                    break;
-                    default:
-                }
-            clearViewReview()
             var popup = document.getElementById("viewReview");
             popup.style.display = "none";
+            var review = document.getElementById("rReview1");
+            // jiahao add review to database
+            //review number should auto increment
+            // paper number stored in paperID variable
+            //review is review
+            //reviewerID is in reviewerID
+            
+
         }
         
         function populate9(array){
@@ -554,16 +450,16 @@ function displayReviewerHomeUI(){
 
         function onLoad(){
             var greeting = document.getElementById("userGreeting")
-            var reviewerName = "John Smith"
-            var reviewerId = "00028373"
+            reviewerName = "John Smith"
+            reviewerId = "00028373"
             greeting.innerText = "Hello, " + reviewerName + ", " + reviewerId
-            loadTable()
+            initialLoadTable()
             // get workload from DB
             var workload = 10 //testing
             document.getElementById("workLoadDisplay").innerText = workload
         }
 
-        function loadTable(){
+        function initialLoadTable(){
             //Jiahao get data from database
             //need paper number that matches reviewerid
             //SELECT * from papers where reviewerid == xxxx
@@ -604,6 +500,18 @@ function displayReviewerHomeUI(){
                 case 1:
                     populate1(array1)
             }
+
+        }
+
+        function showAssignedPapers(){
+            initialLoadTable();
+        }
+
+        function showReviewedPapers(){
+
+        }
+
+        function showUnassignedPapers(){
 
         }
     </script>
