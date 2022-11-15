@@ -15,7 +15,7 @@ function displayReviewerHomeUI(){
             
         </span>
         <span id = "userGreeting">Hello, REVIEWERNAME, REVIEWERID</span>
-        <!-- should load from db??-->
+        <!-- should load from db?? do this at onload-->
 
     </div>
     <style>
@@ -460,15 +460,17 @@ function displayReviewerHomeUI(){
                         var radio3 = document.getElementsByName("review3rating")
                         rating3 = findValueOfradio(radio3)
                         reviewNum3 = document.getElementById("rNo3").innerText
-                        //jiahao run some code here to add rating3/2/1 to database. reviewNum3/2/1 is the id of the review in database 
+                        //jiahao add rating3 to database. reviewNum3 is the id of the review in database 
                     case 2:
                         var radio2 = document.getElementsByName("review2rating")
                         rating2 = findValueOfRadio(radio2)
                         reviewNum2 = document.getElementById("rNo2").innerText
+                        //jiahao add rating2 to database. reviewNum2 is the id of the review in database 
                     case 1:
                         var radio1 = document.getElementsByName("review1rating")         
                         rating1 = findValueOfRadio(radio1)
                         reviewNum1 = document.getElementById("rNo1").innerText
+                        //same as above
                     break;
                     default:
                 }
