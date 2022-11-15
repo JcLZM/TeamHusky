@@ -35,8 +35,8 @@ class controllerLogin {
                 } 
                 else 
                 {
-                    $errorLogin = 'Wrong username or password!';
-                    $_SESSION['errorLogin'] = $errorLogin;
+                    // $errorLogin = 'Wrong username or password!';
+                    // $_SESSION['errorLogin'] = $errorLogin;
                     header("location:UserLoginUI.php");	
                 }
             }
