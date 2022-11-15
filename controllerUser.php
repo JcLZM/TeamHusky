@@ -1,95 +1,80 @@
 <?php
-include '../entity/classUser.php';
+include 'classUser.php';
 
 //Session start
 session_start();
-$pageRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) &&($_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0' ||  $_SERVER['HTTP_CACHE_CONTROL'] == 'no-cache');
-if($pageRefreshed == 1){
-    session_destroy();
-}
+
+$_SESSION['errorLogin'] ='';
 
 class controllerUser {
 
-    public $errorUsername = '';
-    public $errorPassword = '';
+    public $errorLogin = '';
 
     //login
     public function login($username, $password)
     {
         $user = new User();
 
-        //cast login session
-        if(isset($_SESSION['login']))
-        {
-            $login = isset($_SESSION['login']);
-        }
-
-        //if login sucess check for user/pass role
         if(isset($_POST['login'])) 
         {
-            $username = $_POST['username'];
-		    $password = $_POST['password'];
-
-            //Validate username & password for Login
-            if (empty($_POST["username"])) 
+            //Validate Login
+            if (empty($_POST['username'])|| empty($_POST['password']))
             {
-                $errorUsername = "Email is required!";
-            } else 
-            {
-                $username = $_POST["username"];
+                $errorLogin = 'Username or Password cannot be blank!';
+                $_SESSION['errorLogin'] = $errorLogin;
+                
+                header("location:UserLoginUI.php");	
             }
-
-            if (empty($_POST["password"])) 
+            else
             {
-                $errorPassword = "Password is required!";
-            } else 
-            {
-                $password = $_POST["password"];
-            }
-
-            $_SESSION["errorUsername"] = $errorUsername;
-		    $_SESSION["errorPassword"] = $errorUsername;
-
-            $_SESSION["username"] = $username;
-		    $_SESSION["password"] = $password;
-
-            if($errorUsername.$errorUsername =='')
-            {
-                $result = $user->login($_POST['username'], $_POST['password']);
+                //if login sucess check for user/pass role
+                $result = $user -> login($_POST['username'], $_POST['password']);
                 if($result) 
                 {
-                    $login = $_SESSION['login'];			
+                    $login = $_SESSION['login'];	
                 } 
                 else 
                 {
+                    $errorLogin = 'Wrong username or password!';
+                    $_SESSION['errorLogin'] = $errorLogin;
                     header("location:UserLoginUI.php");	
                 }
             }
-	    }
-
-        //If login not empty, check for role
-        if (!empty($login))
-        {
-            if($_SESSION['role'] == 'System Administrator') 
-            {
-                header("location:AdminHomeUI.php");	
-            }
-            // elseif($_SESSION['role'] == 'Restaurant Manager') 
-            // {
-            //     header("location:restaurantmanager.php");	
-            // }
-            // elseif($_SESSION['role'] == 'Restaurant Staff')
-            // {
-            //     header("location:restaurantstaff.php");		
-            // }
-            // elseif($_SESSION['role'] == 'Restaurant Owner')
-            // {
-            //     header("location:restaurantowner.php");		
-            // }
         }
     }
 }
 
+//cast login session
+if(isset($_SESSION['login']))
+{
+    $login = isset($_SESSION['login']);
+}
+
 $login = new controllerUser;
-$login->login($_POST['username'], $_POST['password']);
+$result = $login -> login($_POST['username'], $_POST['password']);
+print_r($login)
+//If login not empty, check for role
+// if (!empty($result))
+// {
+//     if($_SESSION['role'] == 'System Administrator') 
+//     {
+//         header("location:AdminHomeUI.php");	
+//     }
+//     // elseif($_SESSION['role'] == 'Restaurant Manager') 
+//     // {
+//     //     header("location:restaurantmanager.php");	
+//     // }
+//     // elseif($_SESSION['role'] == 'Restaurant Staff')
+//     // {
+//     //     header("location:restaurantstaff.php");		
+//     // }
+//     // elseif($_SESSION['role'] == 'Restaurant Owner')
+//     // {
+//     //     header("location:restaurantowner.php");		
+//     // }
+// }
+// else
+// {
+//     header("location:UserLoginUI.php");	
+// }
 ?>

@@ -3,9 +3,17 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php
+//Session start
+session_start();
+$pageRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) &&($_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0' ||  $_SERVER['HTTP_CACHE_CONTROL'] == 'no-cache');
+if($pageRefreshed == 1){
+    session_destroy();
+}
+
 function displayUserLoginUI() {
   $errorLogin = '';
 
+  //Display Error
   if(isset($_SESSION["errorLogin"])) 
   {
 		$errorLogin = $_SESSION["errorLogin"];
@@ -38,12 +46,12 @@ function displayUserLoginUI() {
   color: rgb(38, 50, 56);
   font-size: 12px;
   letter-spacing: 1px;
-  padding: 10px 60px;
+  padding: 10px 5px;
   box-sizing: border-box;
   border: 0.8px solid;
   text-align: center;
   font-family: Arial;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   }
 
   .pw {
@@ -76,19 +84,21 @@ function displayUserLoginUI() {
   {
     color: red;
     text-align: center;
+    font-family: Arial;
+    font-size: 15px;
   }
 </style>
 </head>
 <body>
   <main>
     <div style="text-align:center; position: absolute; bottom: 50px;">
-      <form action="../controller/controllerUser.php" method="post">
-        <input class="email" type="text" align="center" placeholder="Enter Email" name="username">
-        <input class="pw" type="password" align="center" placeholder=" Enter Password" name="password">
-        <span class="errorMsg"> <?php echo $errorLogin;?></span><br>
+      <form action="controllerUser.php" method="post">
+        <input class="email" type="text" align="center" placeholder="Enter Email" name="username"><br>
+        <input class="pw" type="password" align="center" placeholder=" Enter Password" name="password"><br>
+        <p class="errorMsg"> <?php if (isset($errorLogin)) echo $errorLogin;?></p><br>
         <button class="login" type = "submit" name = "login" value = "login">
         Login
-        </button><br>
+        </button>
       </form>       
     </div>
   </main>
