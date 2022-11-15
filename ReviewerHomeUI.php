@@ -6,7 +6,7 @@ function displayAuthorDashboardUI(){
 <title>Author's Dashboard - TeamHusky Conference Systems</title>
 <head>
     <div class="topnav">
-        <a class="active" href="#home">TeamHusky Research Conference</a> <!-- should load dashboard again-->
+        <a class="active">TeamHusky Research Conference</a> <!-- should load dashboard again-->
         
         <span style="float:right">
             
@@ -14,7 +14,7 @@ function displayAuthorDashboardUI(){
             <!-- jiahao -->
             
         </span>
-        <span style = "float:right; color:#f4f4f4;" id = "userGreeting">Hello, AUTHORNAME, AUTHORID</span>
+        <span style = "float:right; color:#f4f4f4;" id = "userGreeting">Hello, REVIEWERNAME, REVIEWERID</span>
         <!-- should load from db??-->
 
     </div>
@@ -102,25 +102,16 @@ function displayAuthorDashboardUI(){
 
     <div class="midbutton">
         <!-- submit papers modal -->
-        <button onclick ="submitPaper()">Submit Papers</button>
-        <div class="modal" id = "submitpaper">
+        <button onclick ="setWorkload()">Set Workload</button>
+        <div class="modal" id = "setWorkload" >
 
-            <table class="modal-content">
+            <table class="modal-content" style = width:25%>
                 <tr>
-                    <td>Name of paper:</td>
-                    <td><input style = width:500px type="text" id = "papername"></td>
+                    <td>Hours:</td>
+                    <td><input style = width:50px type="text" id = "workload"></td>
                 </tr>
-                <tr>
-                    <td>Authors:</td>
-                    <td><input style = width:500px type="text" id = "authors"></td>
-                </tr>
-                <tr>
-                    <td>Paper Content:</td>
-                    <td><textarea style="height:200px;width:500px;resize:none;" id = "papercontent"></textarea></td>
-                </tr>
-                <tr>
-                    <td><button onclick="confirmPaperSubmit()">Confirm</button></td>
-                    <td><button onclick="cancelPaperSubmit()" class = "close">Cancel</button></td>
+                    <td><button onclick="confirmWorkloadSubmit()">Confirm</button></td>
+                    <td><button onclick="cancelWorkloadSubmit()" class = "close">Cancel</button></td>
                 </tr>
             </table>
         </div>
@@ -265,55 +256,44 @@ function displayAuthorDashboardUI(){
         </table>
     </div> 
     <script>
-        function submitPaper(){ //creates the popup
-            var popup = document.getElementById("submitpaper");
+        function setWorkload(){ //creates the popup
+            var popup = document.getElementById("setWorkload");
             popup.style.display = "block";
         }
 
-        function cancelPaperSubmit(){ 
+        function cancelWorkloadSubmit(){ 
             //closes popup
             //should clear all fields as well
-            var popup = document.getElementById("submitpaper");
+            var popup = document.getElementById("setWorkload");
             popup.style.display = "none";
-            var papername = document.getElementById("papername");
-            var authors = document.getElementById("authors");
-            var papercontent = document.getElementById("papercontent");
-            papername.value = "";
-            authors.value = "";
-            papercontent.value = "";
+            var workloadBox = document.getElementById("workload");
+            workloadBox.value = "";
         }
 
-        function confirmPaperSubmit(){
-            var popup = document.getElementById("submitpaper");
+        function confirmWorkloadSubmit(){
+            var popup = document.getElementById("setWorkload");
             popup.style.display = "none";
             //store all the data in variables and submit it
-            var papername = document.getElementById("papername");
-            var authors = document.getElementById("authors");
-            var papercontent = document.getElementById("papercontent");
+            var workloadBox = document.getElementById("workload");
+            
             
             //SOME CODE HERE JIA HAO LOOK AT IT
+            // 
             //
             //
-            //
-            var paperName = papername.value
+            var workload = workloadBox.value
             
             //also clear it
-            papername.value = "";
-            authors.value = "";
-            papercontent.value = "";
+            workloadBox.value = "";
         }
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
-            var popup = document.getElementById("submitpaper");
+            var popup = document.getElementById("setWorkload");
             if (event.target == popup) {
                 popup.style.display = "none";
-                var papername = document.getElementById("papername");
-                var authors = document.getElementById("authors");
-                var papercontent = document.getElementById("papercontent");
-                papername.value = "";
-                authors.value = "";
-                papercontent.value = "";
+                var workloadBox = document.getElementById("workload");
+                workloadBox.value = "";
                     
             }
 
