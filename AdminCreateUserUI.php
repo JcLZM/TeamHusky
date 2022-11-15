@@ -235,9 +235,11 @@ function displayAdminCreateUserUI() {
         <a class="active" href="AdminHomeUI.php">Home</a>
         <a href="AdminCreateUserUI.php">Create User</a>
         <h1>TeamHusky Research Conference</h1>
-        <button class="logout" type = "submit" name = "logout">
-            Log Out
-        </button>
+        <form action="controllerLogout.php" method="POST">
+            <button class="logout" type = "submit" name = "logout">
+                Log Out
+            </button>
+        </form>
     </div>
 
     <div class="createuserform-container">

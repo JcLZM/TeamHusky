@@ -88,11 +88,12 @@ function displayUserLoginUI() {
     font-size: 15px;
   }
 </style>
+<title>Log In</title>
 </head>
 <body>
   <main>
     <div style="text-align:center; position: absolute; bottom: 50px;">
-      <form action="controllerUser.php" method="post">
+      <form action="controllerLogin.php" method="post">
         <input class="email" type="text" align="center" placeholder="Enter Email" name="username"><br>
         <input class="pw" type="password" align="center" placeholder=" Enter Password" name="password"><br>
         <p class="errorMsg"> <?php if (isset($errorLogin)) echo $errorLogin;?></p><br>

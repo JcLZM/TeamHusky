@@ -25,13 +25,13 @@ include 'database.php';
 				} 
 				else 
 				{
-					$_SESSION['error'] = 'Account has been suspended';
+					$_SESSION['errorLogin'] = 'Account has been suspended';
 					return false;
 				}
 			}
 	        else
 			{
-				$_SESSION['error'] = 'Invalid Username or Password!';
+				$_SESSION['errorLogin'] = 'Invalid Username or Password!';
 			    return false;
 			}
     	}

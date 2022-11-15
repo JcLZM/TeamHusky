@@ -6,7 +6,7 @@ session_start();
 
 $_SESSION['errorLogin'] ='';
 
-class controllerUser {
+class controllerLogin {
 
     public $errorLogin = '';
 
@@ -50,14 +50,14 @@ if(isset($_SESSION['login']))
     $login = isset($_SESSION['login']);
 }
 
-$loginfunction = new controllerUser;
+$loginfunction = new controllerLogin;
 $loginresult = $loginfunction -> login($_POST['username'], $_POST['password']);
 //If login not empty, check for role
 if (!empty($loginresult))
 {
     if($_SESSION['role'] == 'System Administrator') 
     {
-        header("location:AdminHomeUI.php");	
+        header("location:AdminHomeUI.php");
     }
     // elseif($_SESSION['role'] == 'Restaurant Manager') 
     // {
@@ -76,5 +76,4 @@ else
 {
     header("location:UserLoginUI.php");	
 }
-?>
 ?>
