@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <?php
-function displayAuthorDashboardUI(){
+function displayReviewerHomeUI(){
 ?>
-<title>Author's Dashboard - TeamHusky Conference Systems</title>
+<title>Reviewer's Dashboard - TeamHusky Conference Systems</title>
 <head>
     <div class="topnav">
         <a class="active">TeamHusky Research Conference</a> <!-- should load dashboard again-->
@@ -14,7 +14,7 @@ function displayAuthorDashboardUI(){
             <!-- jiahao -->
             
         </span>
-        <span style = "float:right; color:#f4f4f4;" id = "userGreeting">Hello, REVIEWERNAME, REVIEWERID</span>
+        <span id = "userGreeting">Hello, REVIEWERNAME, REVIEWERID</span>
         <!-- should load from db??-->
 
     </div>
@@ -26,6 +26,14 @@ function displayAuthorDashboardUI(){
         .topnav {
             background-color: #414042;
             overflow: hidden;
+        }
+
+        #userGreeting{
+            top:3%;
+            left:80%;
+            color:#f4f4f4;
+            position:absolute;
+
         }
         
         /* navigation bar */
@@ -60,7 +68,7 @@ function displayAuthorDashboardUI(){
             position:absolute;
             top:15%;
             margin:auto;
-            padding-left: 85%;
+            padding-left: 82.5%;
         }
 
         /* The Modal (background) */
@@ -92,17 +100,30 @@ function displayAuthorDashboardUI(){
             visibility:hidden;
         }
 
+        .tableModeSetter{
+            top:8%;
+            position:absolute;
+        }
+
         </style>
    
 </head>
 
 
 
-<body onLoad = "loadTable()">
+<body onLoad = "onLoad()">
+
+    <div class="tableModeSetter">
+        <button onClick = "showAssignedPapers()">Show assigned papers</button>&nbsp;&nbsp;&nbsp;
+        <button onClick = "showReviewedPapers()">Show reviewed papers</button>&nbsp;&nbsp;&nbsp;
+        <button onClick = "showUnassignedPapers()">Show unassigned papers</button>&nbsp;&nbsp;&nbsp;
+    </div>
 
     <div class="midbutton">
         <!-- submit papers modal -->
         <button onclick ="setWorkload()">Set Workload</button>
+        <br>
+        Your workload is currently set to: <span id="workLoadDisplay"></span>&nbsp;hours
         <div class="modal" id = "setWorkload" >
 
             <table class="modal-content" style = width:25%>
@@ -256,7 +277,7 @@ function displayAuthorDashboardUI(){
         </table>
     </div> 
     <script>
-        function setWorkload(){ //creates the popup
+        function setWorkload(){ //opens the popup
             var popup = document.getElementById("setWorkload");
             popup.style.display = "block";
         }
@@ -267,6 +288,7 @@ function displayAuthorDashboardUI(){
             var popup = document.getElementById("setWorkload");
             popup.style.display = "none";
             var workloadBox = document.getElementById("workload");
+            //clear it
             workloadBox.value = "";
         }
 
@@ -278,8 +300,10 @@ function displayAuthorDashboardUI(){
             
             
             //SOME CODE HERE JIA HAO LOOK AT IT
-            // 
-            //
+            // SEND DATA TO DB, 
+            //UPDATE REVIEWERS 
+            // SET workload = 
+            //WHERE ID = reviewerID  
             //
             var workload = workloadBox.value
             
@@ -525,16 +549,25 @@ function displayAuthorDashboardUI(){
             document.getElementById("button1").style.visibility = "visible"
         }
 
+
+        function onLoad(){
+            var greeting = document.getElementById("userGreeting")
+            var reviewerName = "John Smith"
+            var reviewerId = "00028373"
+            greeting.innerText = "Hello, " + reviewerName + ", " + reviewerId
+            loadTable()
+            // get workload from DB
+            var workload = 10 //testing
+            document.getElementById("workLoadDisplay").innerText = workload
+        }
+
         function loadTable(){
             //Jiahao get data from database
-            //need paper number that matches authorid
-            //SELECT * from papers where authorid == xxxx
+            //need paper number that matches reviewerid
+            //SELECT * from papers where reviewerid == xxxx
             
-            //Also Load Author Name and ID for top bar display
-            var greeting = document.getElementById("userGreeting")
-            var authorName = "John Smith"
-            var authorId = "00028373"
-            greeting.innerText = "Hello, " + authorName + ", " + authorId
+            //Also Load reviewerid Name and ID for top bar display
+            
 
             // store in array if possible
             //should get PaperNumber, Title, Author(s), Status
@@ -575,6 +608,6 @@ function displayAuthorDashboardUI(){
 </body>
 <?php
 }
-displayAuthorDashboardUI()
+displayReviewerHomeUI()
 ?>
 </html>
