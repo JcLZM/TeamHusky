@@ -4,11 +4,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php
 function displayAdminCreateUserUI() {
+
+    $errorCreate = '';
+
+    //Display Error
+    if(isset($_SESSION["errorCreate"])) 
+    {
+        $errorCreate = $_SESSION["errorCreate"];
+    }
+
     // Declare variables for errors
-    $emailErr = '';
-    $fullnameErr = '';
-    $passwordErr = '';
-    $roleErr = '';
+    $errorEmail = '';
+    $errorName = '';
+    $errorPW = '';
+    $errorRole = '';
 
     // Declare Variable for sticky form 
     $email = '';
@@ -16,18 +25,18 @@ function displayAdminCreateUserUI() {
     $password = '';
     $role = '';
 
-    // Validate Session Variables from Registration Controller
-	if(isset($_SESSION["emailErr"])) {
-		$emailErr = $_SESSION["emailErr"];
+    // Validate Session Variables from Create User Controller
+	if(isset($_SESSION["errorEmail"])) {
+		$errorEmail = $_SESSION["errorEmail"];
 	}
-	if(isset($_SESSION["fullnameErr"])) {
-		$fullnameErr = $_SESSION["fullnameErr"];
+	if(isset($_SESSION["errorName"])) {
+		$errorName = $_SESSION["errorName"];
 	}
-	if(isset($_SESSION["passwordErr"])) {
-		$passwordErr = $_SESSION["passwordErr"];
+	if(isset($_SESSION["errorPW"])) {
+		$errorPW = $_SESSION["errorPW"];
 	}
-    if(isset($_SESSION["roleErr"])) {
-		$roleErr = $_SESSION["roleErr"];
+    if(isset($_SESSION["errorRole"])) {
+		$errorRole = $_SESSION["errorRole"];
 	}
 
     // Variables for Sticky Form 
@@ -130,7 +139,7 @@ function displayAdminCreateUserUI() {
     border: 0.8px solid;
     text-align: center;
     font-family: Arial;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     }
 
     .pw, .confirmpw {
@@ -143,7 +152,7 @@ function displayAdminCreateUserUI() {
     border: 0.8px solid;
     text-align: center;
     font-family: Arial;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     }
 
     .button 
@@ -171,7 +180,7 @@ function displayAdminCreateUserUI() {
     .custom-select {
     position: relative;
     font-family: Arial;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     font-size: 13px;
     }
 
@@ -227,6 +236,14 @@ function displayAdminCreateUserUI() {
     .select-items div:hover, .same-as-selected {
     background-color: #f4f4f4;
     }
+
+    .errorMsg 
+    {
+        color: red;
+        text-align: center;
+        font-family: Arial;
+        font-size: 10px;
+    }
 </style>
 <title>Admin Create User</title>
 </head>
@@ -243,14 +260,14 @@ function displayAdminCreateUserUI() {
     </div>
 
     <div class="createuserform-container">
-        <form action="controllerCreateUser.php" method="POST">
+        <form action="controllerCreateUser.php" method="post">
             <h2>Enter User's Information</h2>
-            <input class="email" type="text" align="center" placeholder="Enter Email" name="username"><br>
-            <span class="errorMsg"> <?php echo $emailErr;?></span>
+            <input class="email" type="text" align="center" placeholder="Enter Email" name="email"><br>
+            <span class="errorMsg"><?php echo $errorEmail;?></span>
             <input class="fullname" type="text" align="center" placeholder=" Enter Full Name" name="fullname"><br>
-            <span class="errorMsg"> <?php echo $fullnameErr;?></span>
+            <span class="errorMsg"><?php echo $errorName;?></span>
             <input class="pw" type="password" align="center" placeholder=" Enter Password" name="password"><br>
-            <span class="errorMsg"> <?php echo $passwordErr;?></span>
+            <span class="errorMsg"><?php echo $errorPW;?></span>
             <input class="confirmpw" type="password" align="center" placeholder=" Confirm Password" name="confirmpw"><br>
             <div class="custom-select" style="width:100%;">
                 <select name="role">
@@ -260,17 +277,17 @@ function displayAdminCreateUserUI() {
                 <option value="3">Conference Chairman</option>
                 <option value="4">Reviewer</option>
                 </select>
-                <span class="errorMsg"> <?php echo $roleErr;?></span>
             </div>
+            <span class="errorMsg"><?php echo $errorRole;?></span>
             <p class="button">
-            <button class="enter" type = "submit" name = "enter">
-            Enter
-            </button>
-            <button class="reset" type="reset" name="reset"> 
-            Reset
-            </button>
+                <button class="enter" type = "submit" name = "enter" value="enter">
+                Enter
+                </button>
+                <button class="reset" type="reset" name="reset"> 
+                Reset
+                </button>
             </p>
-        </form>       
+        </form>
     </div>
 
     <script>
