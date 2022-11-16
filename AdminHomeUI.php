@@ -3,24 +3,14 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php
+//Session start
+session_start();
+$pageRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) &&($_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0' ||  $_SERVER['HTTP_CACHE_CONTROL'] == 'no-cache');
+if($pageRefreshed == 1){
+    session_destroy();
+}
+
 function displayAdminHomeUI() {
-
-$searchUserErr = '';
-$searchName = '';
-$searchRole = '';
-
-if(isset($_SESSION["searchUserErr"])) 
-{
-    $searchUserErr = $_SESSION["searchUserErr"];
-}
-if(isset($_SESSION["searchName"])) 
-{
-    $searchName = $_SESSION["searchName"];
-}
-if(isset($_SESSION["searchRole"])) 
-{
-    $searchRole = $_SESSION["searchRole"];
-}
 ?>
 <style>
     body {
@@ -136,7 +126,8 @@ if(isset($_SESSION["searchRole"]))
 
     #myTable {
     border-collapse: collapse;
-    width: 100%;
+    width: 90%;
+    margin-left: 60px;
     border: 1px solid #ddd;
     font-size: 18px;
     }
@@ -183,11 +174,10 @@ if(isset($_SESSION["searchRole"]))
     </div>
 
     <div class="search-container">
-        <form action="controllerSearchUser.php" method="post">
+        <form action="controllerViewNSearchUser.php" method="post">
             <input type="text" placeholder="Search full name.." name="searchName">
             <input type="text" placeholder="Search role.." name="searchRole"><br>
-            <span class="errorMsg"> <?php echo $searchUserErr;?></span><br>
-            <button name="search" type="submit">Search</button>
+            <button name="search" type="submit">Search / View</button>
             <button type="reset" name="reset"> Reset </button>
         </form>
     </div>
@@ -204,6 +194,7 @@ function displayUserList($userList)
         <th style = 'width:20%'>View Details</th>
         <th style="width:15%;">User ID</th>
         <th style="width:10%;">Email</th>
+        <th style="width:10%;">Full Name</th>
         <th style="width:15%;">Role</th>
         <th style="width:15%;">Status</th>
         
@@ -212,10 +203,11 @@ function displayUserList($userList)
         while($row = $userList->fetch_assoc()) {?>
         <tr>
             <td align="center">
-            <button name="view" style="border:none;background-color:white;outline:none;"value="<?php echo $row['id'] ?>">click <font color="blue"><u>here</u></font> to view</button>
+            <button name="view" style="border:none;background-color:white;outline:none;"value="<?php echo $row['user_id'] ?>">click <font color="blue"><u>here</u></font> to view</button>
             </td>
             <td><?php echo $row['user_id'] ?></td>
             <td><?php echo $row['email'] ?></td>
+            <td><?php echo $row['full_name'] ?></td>
             <td><?php echo $row['role'] ?></td>
             <td><?php echo $row['user_status'] ?></td>
         </tr>

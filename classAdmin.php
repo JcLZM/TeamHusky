@@ -30,7 +30,7 @@ class Admin extends User{
         $query = "SELECT user_id, email, full_name, role, user_status 
                   FROM user 
                   WHERE full_name LIKE '%$fullname%'  
-                  OR role LIKE '%$role%'";
+                  AND role LIKE '%$role%'";
         $result = mysqli_query($conn,$query) or die(mysqli_connect_errno()." SQL Error");
         return $result;
     }
