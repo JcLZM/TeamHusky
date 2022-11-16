@@ -70,10 +70,10 @@ class Admin extends User{
     }
 
     //Suspend Account & Role (2 user stories combined)
-    public function suspendUser($id, $user_status) 
+    public function suspendUser($user_id, $user_status) 
     {
         $conn = OpenCon();
-        $sql = "UPDATE user SET id='$id', user_status='$user_status' WHERE id='$id'"; 
+        $sql = "UPDATE user SET user_id='$user_id', user_status='$user_status' WHERE user_id='$user_id'"; 
         $result = mysqli_query($conn,$sql) or die(mysqli_connect_errno()." Data cannot suspend");
         if($result)
             return $result; // If insert successful, it should return 1 (number of rows inserted)

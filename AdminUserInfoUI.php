@@ -238,24 +238,22 @@ function displayAdminUserInfoUI() {
             </button>
         </form>
     </div>
-    <form action="controllerSuspendUser.php" method="post">
-        <input class="status" type="text" align="center" placeholder="Status" name="status" disabled><br>
-        <button class="suspend" type = "submit" name = "suspend">
-        Suspend User
-        </button>
-    </form>
 <?php
 
 function displayUpdateUserList($updateUserList)
 {
-?>
+    while($row = $updateUserList->fetch_assoc()) {
+        ?>
+    <form action="controllerSuspendUser.php" method="post">
+        <input type="hidden" name="userid" value="<?php echo $_POST['view']; ?>">
+        <input class="status" type="text" align="center" value="<?php echo $row['user_status']; ?>" name="status" disabled><br>
+        <button class="suspend" type = "submit" name = "suspend">
+        Suspend User
+        </button>
+    </form>
     <div class="updateuserform-container">
         <form action="controllerEditUser.php" method="post">
         <h2>Update User's Information</h2>
-
-        <?php
-        while($row = $updateUserList->fetch_assoc()) {
-        ?>
             <input class="id" type="text" align="center" value="<?php echo $row['user_id']; ?>" name="userid" disabled><br>
             <input class="email" type="text" align="center" value="<?php echo $row['email']; ?>" name="username" disabled><br>
             <input class="fullname" type="text" align="center" value="<?php echo $row['full_name']; ?>" name="newname"><br>
