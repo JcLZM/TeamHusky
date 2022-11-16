@@ -1,9 +1,6 @@
 <?php
-
-use App\classUser;
-
-include 'database.php';
-class reviewer extends user
+include 'classUser.php';
+class Reviewer extends User
 {
     public function reviewer_edit_workload($reviewer_id, $reviewer_workload)
     {
