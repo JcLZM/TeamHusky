@@ -375,7 +375,6 @@ function displayReviewerHomeUI(){
             popup.style.display = "none";
             //store all the data in variables and submit it
             var workloadBox = document.getElementById("workload");
-
             
             //SOME CODE HERE JIA HAO LOOK AT IT
             // SEND DATA TO DB, 
@@ -385,9 +384,7 @@ function displayReviewerHomeUI(){
             //
             var workload = workloadBox.value;
 
-            document.getElementById("workloadDisplay").innerText = workload
-
-            
+            document.getElementById("workLoadDisplay").innerText = workload
             //also clear it
             workloadBox.value = "";
         }
@@ -444,10 +441,13 @@ function displayReviewerHomeUI(){
             popup.style.display = "block";
         }
 
+        var globalButtonVariable = null;
+
         function openReviewInterface(buttonID){
             //1.Get Paper Number(Should have been loaded in page.)
             var number = buttonID.substr(buttonID.length - 1);
             var paperNum = "num" + number
+            globalButtonVariable = buttonID
             paperID = document.getElementById(paperNum).innerText
 
             //JIA HAO
@@ -500,7 +500,10 @@ function displayReviewerHomeUI(){
             // paper number stored in paperID variable
             //review is review
             //reviewerID is in reviewerID
-            
+            var number = globalButtonVariable.substr(globalButtonVariable.length - 1);
+            var statusnum = "status" + number
+            document.getElementById(statusnum).innerText = "Reviewed"
+
         }
         
         function onLoadFunction(){
