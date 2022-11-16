@@ -450,6 +450,7 @@ function displayReviewerHomeUI(){
 
         function onLoad(){
             var greeting = document.getElementById("userGreeting")
+            //jiahao get data from DB, need to find reviewerName and reviewerID
             reviewerName = "John Smith"
             reviewerId = "00028373"
             greeting.innerText = "Hello, " + reviewerName + ", " + reviewerId
