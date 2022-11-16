@@ -28,7 +28,7 @@ class controllerLogin {
             else
             {
                 //if login sucess check for user/pass role
-                $result = $user -> login($_POST['username'], $_POST['password']);
+                $result = $user -> login($username, $password);
                 if($result) 
                 {
                     return $result;

@@ -36,7 +36,7 @@ class controllerCreateUser
                 $_SESSION["role"] = $role;
 
                 $user_status = "Active";
-                $result = $admin -> createUser($_POST['email'], $_POST['fullname'], $_POST['password'], $_POST['role'], $user_status);
+                $result = $admin -> createUser($email, $fullname, $password, $role, $user_status);
                 if($result) 
                 {
                     return $result;
