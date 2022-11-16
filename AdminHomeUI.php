@@ -2,6 +2,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<?php
+function displayAdminHomeUI() {
+
+$searchUserErr = '';
+$searchName = '';
+$searchRole = '';
+
+if(isset($_SESSION["searchUserErr"])) 
+{
+    $searchUserErr = $_SESSION["searchUserErr"];
+}
+if(isset($_SESSION["searchName"])) 
+{
+    $searchName = $_SESSION["searchName"];
+}
+if(isset($_SESSION["searchRole"])) 
+{
+    $searchRole = $_SESSION["searchRole"];
+}
+?>
 <style>
     body {
     margin: 0;
@@ -113,12 +133,37 @@
     font-size: 13px;
     cursor: pointer;
     }
+
+    #myTable {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+    font-size: 18px;
+    }
+
+    #myTable th, #myTable td {
+    text-align: left;
+    padding: 12px;
+    }
+
+    #myTable tr {
+    border-bottom: 1px solid #ddd;
+    }
+
+    #myTable tr.header, #myTable tr:hover {
+    background-color: #f1f1f1;
+    }
+
+    .errorMsg 
+    {
+        color: red;
+        text-align: center;
+        font-family: Arial;
+        font-size: 10px;
+    }
 </style>
 <title>Admin Home Page</title>
 </head>
-<?php
-function displayAdminHomeUI() {
-?>
 <body>
     <div class="topnav">
         <a class="active" href="AdminHomeUI.php">Home</a>
@@ -138,15 +183,50 @@ function displayAdminHomeUI() {
     </div>
 
     <div class="search-container">
-        <form>
+        <form action="controllerSearchUser.php" method="post">
             <input type="text" placeholder="Search full name.." name="searchName">
             <input type="text" placeholder="Search role.." name="searchRole"><br>
+            <span class="errorMsg"> <?php echo $searchUserErr;?></span><br>
             <button name="search" type="submit">Search</button>
+            <button type="reset" name="reset"> Reset </button>
         </form>
     </div>
-</body>
 <?php
 }
+
+function displayUserList($userList)
+{
+    ?>
+    <form action="AdminUserInfoUI.php" method="POST" >
+    </br>
+    <table id="myTable">
+    <tr class="header">
+        <th style = 'width:20%'>View Details</th>
+        <th style="width:15%;">User ID</th>
+        <th style="width:10%;">Email</th>
+        <th style="width:15%;">Role</th>
+        <th style="width:15%;">Status</th>
+        
+    </tr>
+    <?php
+        while($row = $userList->fetch_assoc()) {?>
+        <tr>
+            <td align="center">
+            <button name="view" style="border:none;background-color:white;outline:none;"value="<?php echo $row['id'] ?>">click <font color="blue"><u>here</u></font> to view</button>
+            </td>
+            <td><?php echo $row['user_id'] ?></td>
+            <td><?php echo $row['email'] ?></td>
+            <td><?php echo $row['role'] ?></td>
+            <td><?php echo $row['user_status'] ?></td>
+        </tr>
+    <?php } ?>
+    </table>
+    </form>
+<?php
+}
+?>
+</body>
+<?php
 displayAdminHomeUI()
 ?>
 </html>

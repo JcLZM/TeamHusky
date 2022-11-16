@@ -3,8 +3,14 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php
-function displayAdminCreateUserUI() {
+//Session start
+session_start();
+$pageRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) &&($_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0' ||  $_SERVER['HTTP_CACHE_CONTROL'] == 'no-cache');
+if($pageRefreshed == 1){
+    session_destroy();
+}
 
+function displayAdminCreateUserUI() {
     $errorCreate = '';
 
     //Display Error
@@ -12,46 +18,6 @@ function displayAdminCreateUserUI() {
     {
         $errorCreate = $_SESSION["errorCreate"];
     }
-
-    // Declare variables for errors
-    $errorEmail = '';
-    $errorName = '';
-    $errorPW = '';
-    $errorRole = '';
-
-    // Declare Variable for sticky form 
-    $email = '';
-    $fullname = '';
-    $password = '';
-    $role = '';
-
-    // Validate Session Variables from Create User Controller
-	if(isset($_SESSION["errorEmail"])) {
-		$errorEmail = $_SESSION["errorEmail"];
-	}
-	if(isset($_SESSION["errorName"])) {
-		$errorName = $_SESSION["errorName"];
-	}
-	if(isset($_SESSION["errorPW"])) {
-		$errorPW = $_SESSION["errorPW"];
-	}
-    if(isset($_SESSION["errorRole"])) {
-		$errorRole = $_SESSION["errorRole"];
-	}
-
-    // Variables for Sticky Form 
-	if(isset($_SESSION["email"])) {
-		$email = $_SESSION["email"];
-	}
-	if(isset($_SESSION["fullname"])) {
-		$fullname = $_SESSION["fullname"];
-	}
-	if(isset($_SESSION["password"])) {
-		$password = $_SESSION["password"];
-	}
-    if(isset($_SESSION["role"])) {
-		$role = $_SESSION["role"];
-	}
 ?>
 <style>
     body {
@@ -242,7 +208,7 @@ function displayAdminCreateUserUI() {
         color: red;
         text-align: center;
         font-family: Arial;
-        font-size: 10px;
+        font-size: 15px;
     }
 </style>
 <title>Admin Create User</title>
@@ -263,24 +229,19 @@ function displayAdminCreateUserUI() {
         <form action="controllerCreateUser.php" method="post">
             <h2>Enter User's Information</h2>
             <input class="email" type="text" align="center" placeholder="Enter Email" name="email"><br>
-            <span class="errorMsg"><?php echo $errorEmail;?></span>
             <input class="fullname" type="text" align="center" placeholder=" Enter Full Name" name="fullname"><br>
-            <span class="errorMsg"><?php echo $errorName;?></span>
             <input class="pw" type="password" align="center" placeholder=" Enter Password" name="password"><br>
-            <span class="errorMsg"><?php echo $errorPW;?></span>
-            <input class="confirmpw" type="password" align="center" placeholder=" Confirm Password" name="confirmpw"><br>
             <div class="custom-select" style="width:100%;">
-                <select name="role">
-                <option value="0">Select Role:</option>
-                <option value="1">System Administrator</option>
-                <option value="2">Author</option>
-                <option value="3">Conference Chairman</option>
-                <option value="4">Reviewer</option>
+                <select name="role" id="role">
+                <option value="System Administrator">System Administrator</option>
+                <option value="Author">Author</option>
+                <option value="Conference Chairman">Conference Chairman</option>
+                <option value="Reviewer">Reviewer</option>
                 </select>
             </div>
-            <span class="errorMsg"><?php echo $errorRole;?></span>
+            <p class="errorMsg"> <?php if (isset($errorCreate)) echo $errorCreate;?></p>
             <p class="button">
-                <button class="enter" type = "submit" name = "enter" value="enter">
+                <button class="enter" type = "submit" name = "enter">
                 Enter
                 </button>
                 <button class="reset" type="reset" name="reset"> 
