@@ -14,7 +14,7 @@ class Admin extends User{
         //if the username is not in db then insert to the table
         if ($rowCount == 0) {
             $sql = "INSERT INTO user (email, full_name, password, role, user_status) 
-                    VALUES('$email','$fullname', md5('$password'), '$role', '$user_status')"; 
+                    VALUES('$email','$fullname', '$password', '$role', '$user_status')"; 
             $result = mysqli_query($conn,$sql) or die(mysqli_connect_errno()." Data cannot inserted");
             return $result; // If insert successful, it should return 1 (number of rows inserted)
         }
