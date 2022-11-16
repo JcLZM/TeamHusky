@@ -187,7 +187,7 @@ function displayAdminHomeUI() {
 function displayUserList($userList)
 {
     ?>
-    <form action="AdminUserInfoUI.php" method="POST" >
+    <form action="controllerEditUser1.php" method="POST" >
     </br>
     <table id="myTable">
     <tr class="header">

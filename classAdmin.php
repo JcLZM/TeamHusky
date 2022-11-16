@@ -45,11 +45,22 @@ class Admin extends User{
         return $result;
     }
 
-    //Edit Account & Role (2 user stories combined)
-    public function editUser($user_id, $password, $role)
+    //View Account & Role for Edit User stories(2 user stories combined)
+    public function showUserDetails($user_id) 
     {
         $conn = OpenCon();
-        $sql = "UPDATE user SET password='$password', role='$role' WHERE user_id='$user_id'"; 
+        $query = "SELECT *
+                  FROM user
+                  WHERE user_id='$user_id'";
+        $result = mysqli_query($conn,$query) or die(mysqli_connect_errno()." SQL Error");
+        return $result;
+    }
+
+    //Edit Account & Role (2 user stories combined)
+    public function editUser($user_id, $fullname, $password, $role)
+    {
+        $conn = OpenCon();
+        $sql = "UPDATE user SET full_name='$fullname' , password='$password', role='$role' WHERE user_id='$user_id'"; 
         $result = mysqli_query($conn,$sql) or die(mysqli_connect_errno()." Data cannot suspend");
         if($result)
             return $result; // If insert successful, it should return 1 (number of rows inserted)

@@ -2,6 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<?php
+//Session start
+session_start();
+$pageRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) &&($_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0' ||  $_SERVER['HTTP_CACHE_CONTROL'] == 'no-cache');
+if($pageRefreshed == 1){
+    session_destroy();
+}
+
+function displayAdminUserInfoUI() {
+?>
 <style>
     body {
     margin: 0;
@@ -61,7 +71,7 @@
     .updateuserform-container {
     position: relative;
     width:100%;
-    height:40em;
+    height:30em;
     }
 
     .updateuserform-container form {
@@ -78,7 +88,7 @@
     margin-bottom: 20px;
     }
 
-    .email, .fullname, .role {
+    .email, .fullname, .role, .id {
     width: 100%;
     color: rgb(38, 50, 56);
     font-size: 12px;
@@ -119,17 +129,26 @@
     margin-top: 30px;
     }
 
-    .update {
+    .button 
+    {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 300px;
+    }
+
+    .update, .reset {
     cursor: pointer;
     color: #fff;
     background: #282120;
     border: 0;
-    width: 100%;
+    width: 45%;
     padding-bottom: 10px;
     padding-top: 10px;
     font-family: Arial;
     font-size: 13px;
     box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+    display:inline-block;
     }
 
     .suspend {
@@ -208,9 +227,6 @@
 </style>
 <title>Admin User Info</title>
 </head>
-<?php
-function displayAdminUserInfoUI() {
-?>
 <body>
     <div class="topnav">
         <a class="active" href="AdminHomeUI.php">Home</a>
@@ -222,35 +238,48 @@ function displayAdminUserInfoUI() {
             </button>
         </form>
     </div>
-
-    <div class="updateuserform-container">
-        <form>
-            <h2>Update User's Information</h2>
-            <input class="email" type="text" align="center" placeholder="Email Address" name="username" disabled><br>
-            <input class="role" type="text" align="center" placeholder="Role" name="role" disabled><br>
-            <input class="fullname" type="text" align="center" placeholder="Full Name" name="currentname" disabled><br>
-            <input class="fullname" type="text" align="center" placeholder="Enter Full Name" name="newname"><br>
-            <input class="newpw" type="password" align="center" placeholder=" Enter New Password" name="newpw"><br>
-            <input class="confirmnewpw" type="password" align="center" placeholder=" Confirm New Password" name="confirmnewpw"><br>
-            <div class="custom-select" style="width:100%;">
-                <select>
-                <option value="0">Select Role:</option>
-                <option value="1">System Administrator</option>
-                <option value="2">Author</option>
-                <option value="3">Conference Chairman</option>
-                <option value="4">Reviewer</option>
-                </select>
-            </div>
-            <button class="update" type = "submit" name = "update">
-            Update
-            </button>
-        </form>
+    <form action="controllerSuspendUser.php" method="post">
         <input class="status" type="text" align="center" placeholder="Status" name="status" disabled><br>
         <button class="suspend" type = "submit" name = "suspend">
         Suspend User
         </button>
-    </div>
+    </form>
+<?php
 
+function displayUpdateUserList($updateUserList)
+{
+?>
+    <div class="updateuserform-container">
+        <form action="controllerEditUser.php" method="post">
+        <h2>Update User's Information</h2>
+
+        <?php
+        while($row = $updateUserList->fetch_assoc()) {
+        ?>
+            <input class="id" type="text" align="center" value="<?php echo $row['user_id']; ?>" name="userid" disabled><br>
+            <input class="email" type="text" align="center" value="<?php echo $row['email']; ?>" name="username" disabled><br>
+            <input class="fullname" type="text" align="center" value="<?php echo $row['full_name']; ?>" name="newname"><br>
+            <input class="newpw" type="password" align="center" value="<?php echo $row['password']; ?>" name="newpw"><br>
+            <?php } ?>
+            <input type="hidden" name="userid" value="<?php echo $_POST['view']; ?>">
+            <div class="custom-select" style="width:100%;">
+                <select name="role" id="role">
+                <option value="System Administrator">System Administrator</option>
+                <option value="Author">Author</option>
+                <option value="Conference Chairman">Conference Chairman</option>
+                <option value="Reviewer">Reviewer</option>
+                </select>
+            </div>
+            <p class="button">
+                <button class="update" type = "submit" name = "update">
+                Update
+                </button>
+                <button class="reset" type = "reset" name = "reset">
+                Reset
+                </button>
+            </p>
+        </form>
+    </div>
     <script>
     var x, i, j, l, ll, selElmnt, a, b, c;
     /*look for any elements with the class "custom-select":*/
@@ -331,6 +360,8 @@ function displayAdminUserInfoUI() {
     then close all select boxes:*/
     document.addEventListener("click", closeAllSelect);
     </script>
+        <?php
+}?>
 </body>
 <?php
 }

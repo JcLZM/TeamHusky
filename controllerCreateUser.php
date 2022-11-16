@@ -60,7 +60,7 @@ if($createUserResult)
 {
     echo 
     ("<script LANGUAGE='JavaScript'> 		
-        window.alert('Account Created Successfully!\\nPlease login with new account');
+        window.alert('User Created Successfully!');
         window.location.href='AdminHomeUI.php';
     </script>");
 }
