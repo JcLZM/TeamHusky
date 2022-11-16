@@ -1,111 +1,67 @@
 <?php
-include ('classAdmin.php');
+include 'classAdmin.php';
+
+//Session start
+session_start();
 
 class controllerCreateUser 
 {
+    public $errorCreate = '';
+
+    //create user
     public function createUser($email, $fullname, $password, $role)
     {
         $admin = new Admin;
-        $user_status = "Active";
 
-        $result = $admin -> createUser($email, $fullname, $password, $role, $user_status);
-        if($result) 
+        if (isset($_POST['enter']))
         {
-            return $result;
+            //Validate Create User
+            if (empty($email)|| empty($fullname)|| empty($password)|| empty($role))
+            {
+                $errorCreate = 'Text fields cannot be blank!';
+                $_SESSION['errorCreate'] = $errorCreate;
+
+                header("location:AdminCreateUserUI.php");
+            }
+            else
+            {
+                $email = $_POST['email'];
+                $fullname = $_POST['fullname'];
+                $password = $_POST['password'];
+                $role = $_POST['role'];
+
+                $_SESSION["email"] = $email;
+                $_SESSION["fullname"] = $fullname;
+                $_SESSION["password"] = $password;
+                $_SESSION["role"] = $role;
+
+                $user_status = "Active";
+                $result = $admin -> createUser($_POST['email'], $_POST['fullname'], $_POST['password'], $_POST['role'], $user_status);
+                if($result) 
+                {
+                    return $result;
+                }
+                else
+                {
+                    echo 
+                    ("<script LANGUAGE='JavaScript'> 		
+                        window.alert('Error! Email already exists in the system.');
+                        window.location.href='AdminCreateUserUI.php';
+                    </script>");
+                }
+            }
         }
     }
 }
 
-$_SESSION['errorEmail'] ='';
-$_SESSION['errorName'] ='';
-$_SESSION['errorPW'] ='';
-$_SESSION['errorRole'] ='';
-
-// Declare variables for errors
-$errorEmail = '';
-$errorName = '';
-$errorPW = '';
-$errorRole = '';
-
-$login = isset($_SESSION['login']);
-if (isset($_POST['enter'])) 
+$createUserFunction = new controllerCreateUser;
+$createUserResult = $createUserFunction -> createUser($_POST['email'], $_POST['fullname'], $_POST['password'], $_POST['role']);
+if($createUserResult)
 {
-    // Declare variables to hold person info
-    $email = $_POST['email'];
-    $fullname = $_POST['fullname'];
-    $password = $_POST['password'];
-    $confirmpw = $_POST['confirmpw'];
-    $role = $_POST['role'];
-
-    //Validate Create User Form
-    // Form validation
-    if (empty($email)) 
-    { 
-        $errorEmail = "Email is required!";
-    }	
-    elseif(!preg_match("/^[^@]+@[^@]+\.[^@]+$/",$email)) 
-    {
-        $errorEmail = '*Please enter a valid email address e.g. abc@gmail.com';
-    }
-    
-    if (empty($fullname)) 
-    { 
-        $errorName = "Full Name is required!";
-    } 
-    elseif (!preg_match("/^[a-zA-Z\s]*$/",$fullname)) 
-    {
-        $errorName = "*Please use only alphabets and whitespace";
-    }
-
-    if (empty($password)) 
-    { 
-        $errorPW = "Password is required!";
-    } 
-    else if ($password != $confirmpw) 
-    {
-        $errorPW = "The two passwords do not match!";
-    }
-
-    if (empty($_POST['role'])) 
-    {
-        $errorRole = "Role is required!";
-    } 
-    else 
-    {
-        $role = $_POST["role"];
-    }
-
-    $_SESSION["errorEmail"] = $errorEmail;
-    $_SESSION["errorName"] = $errorName;
-    $_SESSION["errorPW"] = $errorPW;
-    $_SESSION["errorRole"] = $errorRole;
-
-    $_SESSION["email"] = $email;
-    $_SESSION["fullname"] = $fullname;
-    $_SESSION["password"] = $password;
-    $_SESSION["role"] = $role;
-
-    if($errorEmail.$errorName.$errorPW.$errorRole =='')
-    {
-        $createUserFunction = new controllerCreateUser;
-        $createUserResult = $createUserFunction -> createUser($email, $fullname, $password, $role);
-        if($createUserResult) 
-        { 
-            // if result is not false
-            echo 
-            ("<script LANGUAGE='JavaScript'> 		
-                window.alert('Account Created Successfully!\\nPlease login with new account');
-                window.location.href='AdminHomeUI.php';
-            </script>");
-        }
-        else
-        {
-            echo 
-            ("<script LANGUAGE='JavaScript'> 		
-                window.alert('Error! Email already exists in the system.');
-                window.location.href='AdminCreateUserUI.php';
-            </script>");
-        }
-    }
+    echo 
+    ("<script LANGUAGE='JavaScript'> 		
+        window.alert('Account Created Successfully!\\nPlease login with new account');
+        window.location.href='AdminHomeUI.php';
+    </script>");
 }
 ?>
