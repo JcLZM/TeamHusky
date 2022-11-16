@@ -10,7 +10,7 @@ function displayAuthorHomeUI(){
         
         <span style="float:right">
             
-            <a href="#logout">Logout</a> <!-- should run logout function / close session, return to login page--> 
+            <a href="controllerLogout.php">Logout</a> <!-- should run logout function / close session, return to login page--> 
             <!-- jiahao -->
             
         </span>

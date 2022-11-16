@@ -59,18 +59,18 @@ if (!empty($loginresult))
     {
         header("location:AdminHomeUI.php");
     }
-    // elseif($_SESSION['role'] == 'Restaurant Manager') 
-    // {
-    //     header("location:restaurantmanager.php");	
-    // }
-    // elseif($_SESSION['role'] == 'Restaurant Staff')
+    elseif($_SESSION['role'] == 'Author') 
+    {
+        header("location:AuthorHomeUI.php");	
+    }
+    // elseif($_SESSION['role'] == 'Conference Chairman')
     // {
     //     header("location:restaurantstaff.php");		
     // }
-    // elseif($_SESSION['role'] == 'Restaurant Owner')
-    // {
-    //     header("location:restaurantowner.php");		
-    // }
+    elseif($_SESSION['role'] == 'Reviewer')
+    {
+        header("location:ReviewerHomeUI.php");		
+    }
 }
 else
 {
