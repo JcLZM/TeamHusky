@@ -159,7 +159,7 @@ function displayReviewerHomeUI(){
             </form>
             <!-- popup-->
         <br>
-        <form action="controllerDeleteBid.php" method="post" >
+        <form action="controllerDeleteBidR.php" method="post" >
             <input type="hidden" name="userid" value="<?php echo $_SESSION['user_id']; ?>">
             <input type="text" name="paperid" placeholder="Enter Paper No"><br><br>
             <button name="delete">Delete</button>

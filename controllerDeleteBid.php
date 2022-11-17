@@ -1,26 +1,8 @@
 <?php
-include 'classReviewer.php';
 include 'classChairman.php';
 
 class controllerDeleteBid
 {
-    public function deleteBid($userid, $paperid)
-    {
-        $reviewer = new Reviewer;
-
-        if (isset($_POST['delete']))
-        {
-            $userid = $_POST['userid'];
-            $_SESSION["userid"] = $userid;
-
-            $paperid = $_POST['paperid'];
-            $_SESSION["paperid"] = $paperid;
-
-            $result= $reviewer->reviewer_delete_bid($userid, $paperid);
-            return $result;
-        }
-    }
-
     public function chairManDeleteBid($userid, $bid_id){
         $chairman = new Chairman;
 
@@ -39,7 +21,7 @@ class controllerDeleteBid
 }
 
 $function = new controllerDeleteBid; 
-$deleteResult = $function->deleteBid($_POST['user_id'], $_POST['paperid']);
+$deleteResult = $function->chairManDeleteBid($_POST['user_id'], $_POST['paperid']);
 if($deleteResult)
 {
     echo 
