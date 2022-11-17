@@ -2,6 +2,55 @@
 include 'database.php';
 	class User {
 
+		//find user_id
+		public function findUserId($email)
+		{
+			$conn = OpenCon();
+			$query = "SELECT user_id FROM user WHERE email = '$email'";
+			$result = mysqli_query($conn, $query) or die(mysqli_connect_errno() . " Data cannot found");
+			return $result;
+		}
+
+		//admin
+		public function adminUser($user_id)
+		{
+			$conn = OpenCon();
+			$query = "INSERT INTO system_administrator (admin_id) 
+						VALUES('$user_id')";
+			$result = mysqli_query($conn,$query) or die(mysqli_connect_errno()." Data cannot inserted");
+			return $result; // If insert successful, it should return 1 (number of rows inserted)
+		}
+
+		//author
+		public function authorUser($user_id)
+		{
+			$conn = OpenCon();
+			$query = "INSERT INTO author (author_id) 
+						VALUES('$user_id')";
+			$result = mysqli_query($conn,$query) or die(mysqli_connect_errno()." Data cannot inserted");
+			return $result; // If insert successful, it should return 1 (number of rows inserted)
+		}
+
+		//chairman
+		public function chairmanUser($user_id)
+		{
+			$conn = OpenCon();
+			$query = "INSERT INTO conference_chairman (chairman_id) 
+						VALUES('$user_id')";
+			$result = mysqli_query($conn,$query) or die(mysqli_connect_errno()." Data cannot inserted");
+			return $result; // If insert successful, it should return 1 (number of rows inserted)
+		}
+
+		//reviewer
+		public function reviewerUser($user_id)
+		{
+			$conn = OpenCon();
+			$query = "INSERT INTO reviewer (reviewer_id) 
+						VALUES('$user_id')";
+			$result = mysqli_query($conn,$query) or die(mysqli_connect_errno()." Data cannot inserted");
+			return $result; // If insert successful, it should return 1 (number of rows inserted)
+		}
+
 		// Login
 		public function login($username, $password){
 			$conn = OpenCon();

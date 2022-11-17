@@ -50,6 +50,7 @@ if(isset($_SESSION['login']))
     $login = isset($_SESSION['login']);
 }
 
+$user = new User;
 $loginfunction = new controllerLogin;
 $loginresult = $loginfunction -> login($_POST['username'], $_POST['password']);
 //If login not empty, check for role
@@ -63,10 +64,10 @@ if (!empty($loginresult))
     {
         header("location:AuthorHomeUI.php");	
     }
-    // elseif($_SESSION['role'] == 'Conference Chairman')
-    // {
-    //     header("location:restaurantstaff.php");		
-    // }
+    elseif($_SESSION['role'] == 'Conference Chairman')
+    {
+        // header("location:restaurantstaff.php");		
+    }
     elseif($_SESSION['role'] == 'Reviewer')
     {
         header("location:ReviewerHomeUI.php");		

@@ -5,10 +5,6 @@
 <?php
 //Session start
 session_start();
-$pageRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) &&($_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0' ||  $_SERVER['HTTP_CACHE_CONTROL'] == 'no-cache');
-if($pageRefreshed == 1){
-    session_destroy();
-}
 
 function displayAdminHomeUI() {
 ?>

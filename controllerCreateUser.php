@@ -54,10 +54,44 @@ class controllerCreateUser
     }
 }
 
+$admin = new Admin;
 $createUserFunction = new controllerCreateUser;
 $createUserResult = $createUserFunction -> createUser($_POST['email'], $_POST['fullname'], $_POST['password'], $_POST['role']);
 if($createUserResult)
 {
+    if($_SESSION['role'] == 'System Administrator') 
+    {
+        $result = $admin->findUserId($_POST['email']);
+        while($row = $result->fetch_assoc())
+        {
+            $admin->adminUser($row['user_id']); 
+        }
+    }
+    elseif($_SESSION['role'] == 'Author') 
+    {
+        $result = $admin->findUserId($_POST['email']);
+        while($row = $result->fetch_assoc())
+        {
+            $admin->authorUser($_SESSION['user_id']);
+        } 	
+    }
+    elseif($_SESSION['role'] == 'Conference Chairman')
+    {
+        $result = $admin->findUserId($_POST['email']);
+        while($row = $result->fetch_assoc())
+        {
+            $admin->chairmanUser($_SESSION['user_id']);
+        }    		
+    }
+    elseif($_SESSION['role'] == 'Reviewer')
+    {
+        $result = $admin->findUserId($_POST['email']);
+        while($row = $result->fetch_assoc())
+        {
+            $admin->reviewerUser($_SESSION['user_id']);
+        }  
+    }
+
     echo 
     ("<script LANGUAGE='JavaScript'> 		
         window.alert('User Created Successfully!');
