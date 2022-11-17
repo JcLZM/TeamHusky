@@ -143,7 +143,7 @@ function displayReviewerHomeUI(){
     <div class="tableModeSetter">
             <br><br>
             <form action="controllerViewAssignedPapers.php" method="post">
-            <input type="hidden" name="reviewerid" value="<?php $_SESSION['user_id']; ?>">
+            <input type="hidden" name="userid" value="<?php echo $_SESSION['user_id']; ?>">
             <button name="assigned">Show assigned papers</button>
             </form><br>
             <form action="controllerViewReviewedPapers.php" method="post">
@@ -238,7 +238,7 @@ function displayReviewerHomeUI(){
         }?>
 
 <?php
-        function showassignedPapers($assignedList)
+        function showAssignedPapers($assignedList)
         {
         ?>
           <form>
