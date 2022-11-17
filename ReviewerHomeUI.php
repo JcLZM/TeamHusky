@@ -143,6 +143,7 @@ function displayReviewerHomeUI(){
     <div class="tableModeSetter">
             <br><br>
             <form action="controllerViewAssignedPapers.php" method="post">
+            <input type="hidden" name="id" value="<?php $_SESSION['user_id']; ?>">
             <button name="assigned">Show assigned papers</button>
             </form><br>
             <form action="controllerViewReviewedPapers.php" method="post">
@@ -197,7 +198,7 @@ function displayReviewerHomeUI(){
                     <td><?php echo $row['author_id'] ?></td>
                     <td><?php echo $row['paper_status'] ?></td>
                     <td align="center">
-                    <button name="view" id = "bidButton1" onClick = "sendBid(this.id)">Click to bid</button>
+                    <button name="bid">Click to bid</button>
                     </td><!-- button should check status -->
                 </tr>
                 <?php } ?>
@@ -210,7 +211,7 @@ function displayReviewerHomeUI(){
         function showReviewedPapers($reviewedList)
         {
         ?>
-            <div class="mainbox">
+        <form>
             <table id="myTable">
                 <tr class="header">
                     <th style="width:15%;">Paper Number</th>
@@ -226,11 +227,13 @@ function displayReviewerHomeUI(){
                     <td><?php echo $row['title'] ?></td>
                     <td><?php echo $row['author_id'] ?></td>
                     <td><?php echo $row['paper_status'] ?></td>
-                    <td><button id = "commentButton1" onClick="openCommentInterface(this.id)">Click to view</button></td>
+                    <td align="center">
+                    <button name="comment">Click to view</button>
+                    </td>
                 </tr>
                 <?php } ?>
             </table>
-        </div>
+        </form>
     <?php
         }?>
 
@@ -238,19 +241,14 @@ function displayReviewerHomeUI(){
         function showassignedPapers($assignedList)
         {
         ?>
-            <div class="mainbox">
-            <table class = "mainTable">
-                <col width="10%">
-                <col width="40%">
-                <col width="20%">
-                <col width="10%">
-                <col width="10%">
-                <tr> 
-                    <th>Paper Number</td>
-                    <th>Paper Title</td>
-                    <th>Author(s)</td>
-                    <th>Status</td> 
-                    <th>Reviews</td>
+          <form>
+            <table id="myTable">
+                <tr class="header">
+                    <th style="width:15%;">Paper Number</th>
+                    <th style="width:10%;">Paper Title</th>
+                    <th style="width:10%;">Author(s)</th>
+                    <th style="width:15%;">Status</th>
+                    <th style="width:15%;">Reviews</th>
                 </tr>
                 <?php
                 while($row = $assignedList->fetch_assoc()) {?>
@@ -259,11 +257,13 @@ function displayReviewerHomeUI(){
                     <td><?php echo $row['title'] ?></td>
                     <td><?php echo $row['author_id'] ?></td>
                     <td><?php echo $row['paper_status'] ?></td>
-                    <td id = "button1div" style="visibility:hidden"><button id = "button1" onClick="openReviewInterface(this.id)">Click to review</button></td>
+                    <td align="center">
+                    <button name="comment">Click to review</button>
+                    </td>
                 </tr>
                 <?php } ?>
             </table>
-        </div>
+        </form>
     <?php
         }?>
     
