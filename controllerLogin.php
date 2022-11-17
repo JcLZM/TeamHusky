@@ -66,7 +66,7 @@ if (!empty($loginresult))
     }
     elseif($_SESSION['role'] == 'Conference Chairman')
     {
-        // header("location:restaurantstaff.php");		
+        header("location:ChairmanUI.php");		
     }
     elseif($_SESSION['role'] == 'Reviewer')
     {
