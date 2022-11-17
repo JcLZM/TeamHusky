@@ -10,10 +10,26 @@ class Reviewer extends User
         return $result;
     }
 
-    public function reviewer_search_unreviewed_paper()
+    public function reviewer_view_reviewed_paper()
     {
         $conn = OpenCon();
-        $query = "SELECT * FROM papers WHERE paper_status = 'Review pending'";
+        $query = "SELECT * FROM papers WHERE paper_status = 'Reviewed'";
+        $result = mysqli_query($conn, $query) or die(mysqli_connect_errno() . "No unreviewed papers available");
+        return $result;
+    }
+
+    public function reviewer_view_unassigned_paper()
+    {
+        $conn = OpenCon();
+        $query = "SELECT * FROM papers WHERE paper_status = 'Pending Review'";
+        $result = mysqli_query($conn, $query) or die(mysqli_connect_errno() . "No unreviewed papers available");
+        return $result;
+    }
+
+    public function reviewer_view_assigned_paper($reviewer_id)
+    {
+        $conn = OpenCon();
+        $query = "SELECT * FROM papers WHERE reviewer_id = '$reviewer_id'";
         $result = mysqli_query($conn, $query) or die(mysqli_connect_errno() . "No unreviewed papers available");
         return $result;
     }
