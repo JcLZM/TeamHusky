@@ -34,12 +34,10 @@ class Reviewer extends User
         return $result;
     }
 
-    public function reviewer_create_bid($reviewer_id, $paper_id)
+    public function reviewer_create_bid($paper_id, $reviewer_id)
     {
         $conn = OpenCon();
-        $query1 = "SELECT paper_id FROM papers WHERE paper_status = 'Review pending' AND paper_id = '$paper_id'";
-        $result1 = mysqli_query($conn, $query1) or die(mysqli_connect_errno() . "No unreviewed papers available");
-        $query2 = "INSERT INTO bids (bid_id, paper_id, reviewer_id) VALUES ('', '$result1', '$reviewer_id')";
+        $query2 = "INSERT INTO bids (paper_id, reviewer_id) VALUES ('$paper_id', '$reviewer_id')";
         $result2 = mysqli_query($conn, $query2) or die(mysqli_connect_errno() . "Bid unsuccessful");
         return $result2;
     }

@@ -138,23 +138,6 @@ function displayReviewerHomeUI(){
    
 </head>
 
-
-<body onLoad = "onLoadFunction()">
-    <div class="tableModeSetter">
-            <br><br>
-            <form action="controllerViewAssignedPapers.php" method="post">
-            <input type="hidden" name="userid" value="<?php echo $_SESSION['user_id']; ?>">
-            <button name="assigned">Show assigned papers</button>
-            </form><br>
-            <form action="controllerViewReviewedPapers.php" method="post">
-            <button name="reviewed">Show reviewed papers</button>
-            </form><br>
-            <form action="controllerViewUnassignedPapers.php" method="post">
-            <button name="unassigned">Show unassigned papers</button>
-            </form>
-            <br><br>
-        </div>
-
         <div class="midbutton">
             <!-- submit papers modal -->
             <button onClick ="setWorkload()">Set Workload</button>
@@ -175,24 +158,47 @@ function displayReviewerHomeUI(){
             </div>
             </form>
             <!-- popup-->
-        </div>
+        <br>
+        <form action="controllerDeleteBid.php" method="post" >
+            <input type="hidden" name="userid" value="<?php echo $_SESSION['user_id']; ?>">
+            <input type="text" name="paperid" placeholder="Enter Paper No"><br><br>
+            <button name="delete">Delete</button>
+        </form>
+        </div><br>
 
-        <?php
+<body onLoad = "onLoadFunction()">
+    <div class="tableModeSetter">
+            <br><br>
+            <form action="controllerViewAssignedPapers.php" method="post">
+            <input type="hidden" name="userid" value="<?php echo $_SESSION['user_id']; ?>">
+            <button name="assigned">Show assigned papers</button>
+            </form><br>
+            <form action="controllerViewReviewedPapers.php" method="post">
+            <button name="reviewed">Show reviewed papers</button>
+            </form><br>
+            <form action="controllerViewUnassignedPapers.php" method="post">
+            <button name="unassigned">Show unassigned papers</button>
+            </form><br>
+
+            <?php
         function showUnassignedPapers($unassignedList)
         {
         ?>
-        <form>
             <table id="myTable">
                 <tr class="header">
-                    <th style="width:15%;">Paper Number</th>
+                    <th style="width:0%;"></th>
+                    <th style="width:10%;">Paper Number</th>
                     <th style="width:10%;">Paper Title</th>
                     <th style="width:10%;">Author(s)</th>
                     <th style="width:15%;">Status</th>
                     <th style="width:15%;">Reviews</th>
                 </tr>
+                <form action="controllerCreateBid.php" method="post">
+                <td><input type="hidden" name="userid" value="<?php echo $_SESSION['user_id']; ?>"></td>
                 <?php
                 while($row = $unassignedList->fetch_assoc()) {?>
                 <tr>
+                    <td><input type="hidden" name="paper_id" value="<?php echo $row['paper_id']; ?>"></td>
                     <td><?php echo $row['paper_id'] ?></td>
                     <td><?php echo $row['title'] ?></td>
                     <td><?php echo $row['author_id'] ?></td>
@@ -202,8 +208,8 @@ function displayReviewerHomeUI(){
                     </td><!-- button should check status -->
                 </tr>
                 <?php } ?>
+                </form>
             </table>
-        </form>
     <?php
         }?>
         
@@ -211,7 +217,7 @@ function displayReviewerHomeUI(){
         function showReviewedPapers($reviewedList)
         {
         ?>
-        <form>
+        <form action="" method="post">
             <table id="myTable">
                 <tr class="header">
                     <th style="width:15%;">Paper Number</th>
@@ -266,6 +272,8 @@ function displayReviewerHomeUI(){
         </form>
     <?php
         }?>
+        </div>
+        
     
     <div class = "modal" id = "createReview">
         <table class ="modal-content" style = "width:60%; top:25%">
@@ -375,17 +383,17 @@ function displayReviewerHomeUI(){
         //     workloadBox.value = "";
         // }
 
-        function sendBid(buttonID){
-            //find paper id
-            var number = buttonID.substr(buttonID.length - 1);
-            //alert(number)
-            var paperNum = "num" + number
-            var paperID = document.getElementById(paperNum).innerText
-            //set bid for paper id, 
-            //add to bids table
-            //paper id / reviewer id 
-            //reviewer in variable reviewerID (global)
-        }
+        // function sendBid(buttonID){
+        //     //find paper id
+        //     var number = buttonID.substr(buttonID.length - 1);
+        //     //alert(number)
+        //     var paperNum = "num" + number
+        //     var paperID = document.getElementById(paperNum).innerText
+        //     //set bid for paper id, 
+        //     //add to bids table
+        //     //paper id / reviewer id 
+        //     //reviewer in variable reviewerID (global)
+        // }
 
         function confirmWorkloadSubmit(){
             var popup = document.getElementById("setWorkload");
