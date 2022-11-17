@@ -26,7 +26,7 @@ if($acceptResult)
 {
     echo
     ("<script LANGUAGE='JavaScript'> 		
-        window.alert('User Updated Successfully!');
+        window.alert('Paper has been accepted successfully!');
         window.location.href='ChairmanHomeUI.php';
     </script>");
 }
