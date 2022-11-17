@@ -169,7 +169,7 @@ function displayReviewerHomeUI(){
 <body onLoad = "onLoadFunction()">
     <div class="tableModeSetter">
             <br><br>
-            <form action="controllerViewAssignedPapers.php" method="post">
+            <form action="controllerViewAssignedPapersR.php" method="post">
             <input type="hidden" name="userid" value="<?php echo $_SESSION['user_id']; ?>">
             <button name="assigned">Show assigned papers</button>
             </form><br>
