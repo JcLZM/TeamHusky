@@ -217,29 +217,25 @@ function displayReviewerHomeUI(){
         function showReviewedPapers($reviewedList)
         {
         ?>
-        <form action="" method="post">
             <table id="myTable">
                 <tr class="header">
+                    <th style="width:0%;"></th>
                     <th style="width:15%;">Paper Number</th>
                     <th style="width:10%;">Paper Title</th>
                     <th style="width:10%;">Author(s)</th>
                     <th style="width:15%;">Status</th>
-                    <th style="width:15%;">Reviews</th>
                 </tr>
                 <?php
                 while($row = $reviewedList->fetch_assoc()) {?>
                 <tr>
+                    <td><input type="hidden" name="paper_id" value="<?php echo $row['paper_id']; ?>"></td>
                     <td><?php echo $row['paper_id'] ?></td>
                     <td><?php echo $row['title'] ?></td>
                     <td><?php echo $row['author_id'] ?></td>
                     <td><?php echo $row['paper_status'] ?></td>
-                    <td align="center">
-                    <button name="comment">Click to view</button>
-                    </td>
                 </tr>
                 <?php } ?>
             </table>
-        </form>
     <?php
         }?>
 
@@ -247,14 +243,12 @@ function displayReviewerHomeUI(){
         function showAssignedPapers($assignedList)
         {
         ?>
-          <form>
             <table id="myTable">
                 <tr class="header">
                     <th style="width:15%;">Paper Number</th>
                     <th style="width:10%;">Paper Title</th>
                     <th style="width:10%;">Author(s)</th>
                     <th style="width:15%;">Status</th>
-                    <th style="width:15%;">Reviews</th>
                 </tr>
                 <?php
                 while($row = $assignedList->fetch_assoc()) {?>
@@ -263,81 +257,12 @@ function displayReviewerHomeUI(){
                     <td><?php echo $row['title'] ?></td>
                     <td><?php echo $row['author_id'] ?></td>
                     <td><?php echo $row['paper_status'] ?></td>
-                    <td align="center">
-                    <button name="comment">Click to review</button>
-                    </td>
                 </tr>
                 <?php } ?>
             </table>
-        </form>
     <?php
         }?>
         </div>
-        
-    
-    <div class = "modal" id = "createReview">
-        <table class ="modal-content" style = "width:60%; top:25%">
-            <tr>
-                <th>Paper Title</td> <!-- paper title-->
-                <th>Paper</td> <!-- paper content-->
-                
-            </tr>
-            <tr> 
-                <td id = "pTitle"></td>
-                <td id = "pContent"></td>
-                
-            </tr>
-            <tr>
-                <td>Your Review: </td>
-            <td id = "pReview"><textArea style = "height:200px;width:1000px"></textArea></td>
-            </tr>
-            <tr>
-                <td>Rating:</td>
-                <td>    
-                    <select name="reviewRating" id="reviewRating">
-                        <option value="3">Strong Accept (3)</option>
-                        <option value="2">Accept (2)</option>
-                        <option value="1">Weak Accept (1)</option>    
-                        <option value="0" selected="selected">Borderline (0)</option>
-                        <option value="-1">Weak Reject (-1)</option>
-                        <option value="-2">Reject (-2)</option>
-                        <option value="-3">Strong Reject (-3)</option>
-                    </select>
-            </tr>
-            <tr>
-                <td colspan = "3"><button onClick = "confirmCreateReview()">Confirm</button></td> <!-- both should clear all fields.-->
-                <td colspan = "2"><button onClick = "cancelCreateReview()">Cancel</button></td>
-        </table>
-
-    </div>
-
-    <div class = "modal" id = "displayReview">
-        <table class ="modal-content" style = "width:60%; top:25%">
-            <tr>
-                <th>Paper Title</td> <!-- paper title-->
-                <th>Paper</td> <!-- paper content-->
-                
-            </tr>
-            <tr> 
-                <td id = "rTitle"></td>
-                <td id = "rContent"></td>
-                
-            </tr>
-            <tr>
-                <td>Review: </td>
-            <td id = "rReview"></td>
-            </tr>
-            <tr>
-                <td>Comment:</td>
-                <td>    
-                <textArea id = "rComment" style = "height:200px;width:1000px"></textArea>
-            </tr>
-            <tr>
-                <td colspan = "3"><button onClick = "confirmDisplayReview()">Confirm</button></td> <!-- both should clear all fields.-->
-                <td colspan = "2"><button onClick = "cancelDisplayReview()">Cancel</button></td>
-        </table>
-
-    </div>
 
     <script>
         var currentPaperId = null
