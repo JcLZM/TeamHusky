@@ -529,8 +529,7 @@ function displayReviewerHomeUI(){
             // var workload = 10 //testing
             // document.getElementById("workLoadDisplay").innerText = workload;
         }
-    </script>
-    
+    </script>    
 </body>
 
 <?php
