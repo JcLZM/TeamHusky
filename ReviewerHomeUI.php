@@ -521,8 +521,8 @@ function displayReviewerHomeUI(){
             $session_id=(isset($_SESSION['user_id']))?$_SESSION['user_id']:'';?>
             var greeting = document.getElementById("userGreeting");
             //jiahao get data from DB, need to find reviewerName and reviewerID
-            var reviewerName = '<?php echo $session_name;?>';;
-            var reviewerID = '<?php echo $session_id;?>';;
+            reviewerName = '<?php echo $session_name;?>';;
+            reviewerID = '<?php echo $session_id;?>';;
             greeting.innerText = "Hello, " + reviewerName + ", " + reviewerID;
             initialLoadTable()
             // // get workload from DB
