@@ -5,10 +5,6 @@
 <?php
 //Session start
 session_start();
-$pageRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) &&($_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0' ||  $_SERVER['HTTP_CACHE_CONTROL'] == 'no-cache');
-if($pageRefreshed == 1){
-    session_destroy();
-}
 
 function displayAdminHomeUI() {
 ?>
@@ -170,6 +166,7 @@ function displayAdminHomeUI() {
     <div class="welcomeLogo">
         <img src="./images/logo_husky.png"/>
         <h1>welcome back to system administrator</h1>
+        <h2><?php echo $_SESSION['full_name'] ?></h2>
     </div>
 
     <div class="search-container">
