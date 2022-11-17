@@ -508,8 +508,8 @@ CREATE TABLE `reviews` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `reviews` (`review_id`, `comment_id`, `author_rating`, `reviewer_rating`, `content`) VALUES
-"(1,1,3,2,""A lifelong intimacy with animals has got me out of the common notion that they are automata with a slight infusion of inI have criticized absent people so often, and then discovered, to my humiliation, that I was talking with their relatives, that I have grown superstitious about that sort of thing and dropped it.
-telligence in their composition. The mind in beast and bird, as in man, is the main thing.""),"
+(1,1,3,2,"A lifelong intimacy with animals has got me out of the common notion that they are automata with a slight infusion of inI have criticized absent people so often, and then discovered, to my humiliation, that I was talking with their relatives, that I have grown superstitious about that sort of thing and dropped it.
+telligence in their composition. The mind in beast and bird, as in man, is the main thing."),
 (2,2,3,3,"I am happy being able to play roles with people my age because once you do something really mature there is no turning back."),
 (3,3,2,3,"I have criticized absent people so often, and then discovered, to my humiliation, that I was talking with their relatives, that I have grown superstitious about that sort of thing and dropped it."),
 (4,4,5,1,"Evil communication corrupts good manners. I hope to live to hear that good communication corrects bad manners."),
@@ -534,8 +534,8 @@ telligence in their composition. The mind in beast and bird, as in man, is the m
 (23,23,3,-3,"Everything looks impossible for the people who never try anything."),
 (24,24,1,3,"If I had my life to live over again, I don't think I would have the strength."),
 (25,25,1,0,"I stopped dating for six months a year ago. Dating requires a lot of energy and focus."),
-"(26,26,4,-3,""A lifelong intimacy with animals has got me out of the common notion that they are automata with a slight infusion of inI have criticized absent people so often, and then discovered, to my humiliation, that I was talking with their relatives, that I have grown superstitious about that sort of thing and dropped it.
-telligence in their composition. The mind in beast and bird, as in man, is the main thing.""),"
+(26,26,4,-3,"A lifelong intimacy with animals has got me out of the common notion that they are automata with a slight infusion of inI have criticized absent people so often, and then discovered, to my humiliation, that I was talking with their relatives, that I have grown superstitious about that sort of thing and dropped it.
+telligence in their composition. The mind in beast and bird, as in man, is the main thing."),
 (27,27,3,3,"I am happy being able to play roles with people my age because once you do something really mature there is no turning back."),
 (28,28,3,3,"I have criticized absent people so often, and then discovered, to my humiliation, that I was talking with their relatives, that I have grown superstitious about that sort of thing and dropped it."),
 (29,29,1,-3,"Evil communication corrupts good manners. I hope to live to hear that good communication corrects bad manners."),
@@ -560,8 +560,8 @@ telligence in their composition. The mind in beast and bird, as in man, is the m
 (48,48,2,-2,"Everything looks impossible for the people who never try anything."),
 (49,49,5,-3,"If I had my life to live over again, I don't think I would have the strength."),
 (50,50,1,-2,"I stopped dating for six months a year ago. Dating requires a lot of energy and focus."),
-"(51,51,2,2,""A lifelong intimacy with animals has got me out of the common notion that they are automata with a slight infusion of inI have criticized absent people so often, and then discovered, to my humiliation, that I was talking with their relatives, that I have grown superstitious about that sort of thing and dropped it.
-telligence in their composition. The mind in beast and bird, as in man, is the main thing.""),"
+(51,51,2,2,"A lifelong intimacy with animals has got me out of the common notion that they are automata with a slight infusion of inI have criticized absent people so often, and then discovered, to my humiliation, that I was talking with their relatives, that I have grown superstitious about that sort of thing and dropped it.
+telligence in their composition. The mind in beast and bird, as in man, is the main thing."),
 (52,52,4,-2,"I am happy being able to play roles with people my age because once you do something really mature there is no turning back."),
 (53,53,2,-3,"I have criticized absent people so often, and then discovered, to my humiliation, that I was talking with their relatives, that I have grown superstitious about that sort of thing and dropped it."),
 (54,54,4,0,"Evil communication corrupts good manners. I hope to live to hear that good communication corrects bad manners."),
@@ -586,8 +586,7 @@ telligence in their composition. The mind in beast and bird, as in man, is the m
 (73,73,3,2,"Everything looks impossible for the people who never try anything."),
 (74,74,4,1,"If I had my life to live over again, I don't think I would have the strength."),
 (75,75,5,-2,"I stopped dating for six months a year ago. Dating requires a lot of energy and focus."),
-"(76,76,5,2,""A lifelong intimacy with animals has got me out of the common notion that they are automata with a slight infusion of inI have criticized absent people so often, and then discovered, to my humiliation, that I was talking with their relatives, that I have grown superstitious about that sort of thing and dropped it.
-telligence in their composition. The mind in beast and bird, as in man, is the main thing.""),"
+(76,76,5,2,"A lifelong intimacy with animals has got me out of the common notion that they are automata with a slight infusion of inI have criticized absent people so often, and then discovered, to my humiliation, that I was talking with their relatives, that I have grown superstitious about that sort of thing and dropped it. intelligence in their composition. The mind in beast and bird, as in man, is the main thing."),
 (77,77,5,1,"I am happy being able to play roles with people my age because once you do something really mature there is no turning back."),
 (78,78,2,0,"I have criticized absent people so often, and then discovered, to my humiliation, that I was talking with their relatives, that I have grown superstitious about that sort of thing and dropped it."),
 (79,79,4,2,"Evil communication corrupts good manners. I hope to live to hear that good communication corrects bad manners."),
