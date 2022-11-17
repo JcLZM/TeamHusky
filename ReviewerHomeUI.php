@@ -1,6 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <?php
+//Session start
+session_start();
+
 function displayReviewerHomeUI(){
 ?>
 <title>Reviewer's Dashboard - TeamHusky Conference Systems</title>
@@ -14,8 +17,7 @@ function displayReviewerHomeUI(){
             <a href="controllerLogout.php">Logout</a> <!-- should run logout function / close session, return to login page--> 
             
         </span>
-        <span id = "userGreeting">Hello, REVIEWERNAME, REVIEWERID</span>
-        <!-- should load from db?? do this at onload-->
+        <span id = "userGreeting">Hello, reviewerName, reviewerID</span>
 
     </div>
     <style>
@@ -111,6 +113,27 @@ function displayReviewerHomeUI(){
             display:none
         }
 
+        #myTable {
+        border-collapse: collapse;
+        width: 90%;
+        margin-left: 60px;
+        border: 1px solid #ddd;
+        font-size: 18px;
+        }
+
+        #myTable th, #myTable td {
+        text-align: left;
+        padding: 12px;
+        }
+
+        #myTable tr {
+        border-bottom: 1px solid #ddd;
+        }
+
+        #myTable tr.header, #myTable tr:hover {
+        background-color: #f1f1f1;
+        }
+
         </style>
    
 </head>
@@ -119,9 +142,15 @@ function displayReviewerHomeUI(){
 <body onLoad = "onLoadFunction()">
     <div class="tableModeSetter">
             <br><br>
-            <button onClick = "showAssignedPapers()">Show assigned papers</button>&nbsp;&nbsp;&nbsp;
-            <button onClick = "showReviewedPapers()">Show reviewed papers</button>&nbsp;&nbsp;&nbsp;
-            <button onClick = "showUnassignedPapers()">Show unassigned papers</button>&nbsp;&nbsp;&nbsp;
+            <form action="controllerViewAssignedPapers.php" method="post">
+            <button name="assigned">Show assigned papers</button>
+            </form><br>
+            <form action="controllerViewReviewedPapers.php" method="post">
+            <button name="reviewed">Show reviewed papers</button>
+            </form><br>
+            <form action="controllerViewUnassignedPapers.php" method="post">
+            <button name="unassigned">Show unassigned papers</button>
+            </form>
             <br><br>
         </div>
 
@@ -129,126 +158,114 @@ function displayReviewerHomeUI(){
             <!-- submit papers modal -->
             <button onClick ="setWorkload()">Set Workload</button>
             <br>
-            Your workload is currently set to: <span id="workLoadDisplay">-1</span>&nbsp;papers
+            <!-- Your workload is currently set to: <span id="workLoadDisplay">-1</span>&nbsp;papers -->
+            <form action="controllerEditWorkload.php" method="post" >
             <div class="modal" id = "setWorkload" >
-
                 <table class="modal-content" style = width:25%>
                     <tr>
                         <td>Papers:</td>
-                        <td><input style = width:50px type="text" id = "workload"></td>
+                        <td><input type="hidden" name="userid" value="<?php echo $_SESSION['user_id']; ?>"></td>
+                        <td><input style = width:50px type="text" id = "workload" name="workload"></td>
                     </tr>
-                        <td><button onClick="confirmWorkloadSubmit()">Confirm</button></td>
-                        <td><button onClick="cancelWorkloadSubmit()" class = "close">Cancel</button></td>
+                        <td><button name="confirm">Confirm</button></td>
+                        <td><button name="cancel" class = "close">Cancel</button></td>
                     </tr>
                 </table>
             </div>
+            </form>
             <!-- popup-->
         </div>
-        <div class="mainbox">
-        <table class = "mainTable">
-            <col width="10%">
-            <col width="40%">
-            <col width="20%">
-            <col width="10%">
-            <col width="10%">
-            <tr> 
-                <th>Paper Number</td>
-                <th>Paper Title</td>
-                <th>Author(s)</td>
-                <th>Status</td> 
-                <th>Reviews</td>
-             </tr>
-            <tr> 
-                <td id = "num1"></td> <!--Paper number from database-->
-                <td id = "name1"></td><!-- Paper title from database-->
-                <td id = "author1"></td><!-- Author(s)-->
-                <td id = "status1"></td><!-- status of paper-->
-                <td id = "button1div" style="visibility:hidden"><button id = "button1" onClick="openReviewInterface(this.id)">Click to review</button> 
-                <button id = "commentButton1" onClick="openCommentInterface(this.id)">Click to view</button>
-                <button id = "bidButton1" onClick = "sendBid(this.id)">Click to bid</button></td><!-- button should check status -->
-            </tr>
-            <tr> 
-                <td id = "num2"></td> <!--Paper number from database-->
-                <td id = "name2"></td><!-- Paper title from database-->
-                <td id = "author2"></td><!-- Author(s)-->
-                <td id = "status2"></td><!-- status of paper-->
-                <td id = "button2div" style="visibility:hidden"><button id = "button2" onClick="openReviewInterface(this.id)">Click to review</button>
-                <button id = "commentButton2" onClick="openCommentInterface(this.id)">Click to view</button> 
-                <button id = "bidButton2" onClick = "sendBid(this.id)">Click to bid</button></td><!-- button should check status -->
-                <!-- should pull reviews from db-->
-            </tr>
-            <tr> 
-                <td id = "num3"></td> <!--Paper number from database-->
-                <td id = "name3"></td><!-- Paper title from database-->
-                <td id = "author3"></td><!-- Author(s)-->
-                <td id = "status3"></td><!-- status of paper-->
-                <td id = "button3div" style="visibility:hidden"><button id = "button3" onClick="openReviewInterface(this.id)">Click to review</button> 
-                <button id = "commentButton3" onClick="openCommentInterface(this.id)">Click to view</button>
-                <button id = "bidButton3" onClick = "sendBid(this.id)">Click to bid</button></td><!-- button should check status -->
-                <!-- should pull reviews from db-->
-            </tr>
-            <tr> 
-                <td id = "num4"></td> <!--Paper number from database-->
-                <td id = "name4"></td><!-- Paper title from database-->
-                <td id = "author4"></td><!-- Author(s)-->
-                <td id = "status4"></td><!-- status of paper-->
-                <td id = "button4div" style="visibility:hidden"><button id = "button4" onClick="openReviewInterface(this.id)">Click to review</button>
-                <button id = "commentButton4" onClick="openCommentInterface(this.id)">Click to view</button>
-                <button id = "bidButton4" onClick = "sendBid(this.id)">Click to bid</button></td><!-- button should check status -->
-                <!-- should pull reviews from db-->
-            </tr>
-            <tr> 
-                <td id = "num5"></td> <!--Paper number from database-->
-                <td id = "name5"></td><!-- Paper title from database-->
-                <td id = "author5"></td><!-- Author(s)-->
-                <td id = "status5"></td><!-- status of paper-->
-                <td id = "button5div" style="visibility:hidden"><button id = "button5" onClick="openReviewInterface(this.id)">Click to review</button>
-                <button id = "commentButton5" onClick="openCommentInterface(this.id)">Click to view</button><!-- button should check status -->
-                <button id = "bidButton5" onClick = "sendBid(this.id)">Click to bid</button></td>
-                <!-- should pull reviews from db-->
-            </tr>
-            <tr> 
-                <td id = "num6"></td> <!--Paper number from database-->
-                <td id = "name6"></td><!-- Paper title from database-->
-                <td id = "author6"></td><!-- Author(s)-->
-                <td id = "status6"></td><!-- status of paper-->
-                <td id = "button6div" style="visibility:hidden"><button id = "button6" onClick="openReviewInterface(this.id)">Click to review</button>
-                <button id = "commentButton6" onClick="openCommentInterface(this.id)">Click to view</button>
-                <button id = "bidButton6" onClick = "sendBid(this.id)">Click to bid</button></td><!-- button should check status -->
-                <!-- should pull reviews from db-->
-            </tr>
-            <tr> 
-                <td id = "num7"></td> <!--Paper number from database-->
-                <td id = "name7"></td><!-- Paper title from database-->
-                <td id = "author7"></td><!-- Author(s)-->
-                <td id = "status7"></td><!-- status of paper-->
-                <td id = "button7div" style="visibility:hidden"><button id = "button7" onClick="openReviewInterface(this.id)">Click to review</button>
-                <button id = "commentButton7" onClick="openCommentInterface(this.id)">Click to view</button>
-                <button id = "bidButton7" onClick = "sendBid(this.id)">Click to bid</button></td><!-- button should check status -->
-                <!-- should pull reviews from db-->
-            </tr>
-            <tr> 
-                <td id = "num8"></td> <!--Paper number from database-->
-                <td id = "name8"></td><!-- Paper title from database-->
-                <td id = "author8"></td><!-- Author(s)-->
-                <td id = "status8"></td><!-- status of paper-->
-                <td id = "button8div" style="visibility:hidden"><button id = "button8" onClick="openReviewInterface(this.id)">Click to review</button>
-                <button id = "commentButton8" onClick="openCommentInterface(this.id)">Click to view</button>
-                <button id = "bidButton8" onClick = "sendBid(this.id)">Click to bid</button></td><!-- button should check status -->
-                <!-- should pull reviews from db-->
-            </tr>
-            <tr> 
-                <td id = "num9"></td> <!--Paper number from database-->
-                <td id = "name9"></td><!-- Paper title from database-->
-                <td id = "author9"></td><!-- Author(s)-->
-                <td id = "status9"></td><!-- status of paper-->
-                <td id = "button9div" style="visibility:hidden"><button id = "button9" onClick="openReviewInterface(this.id)">Click to review</button>
-                <button id = "commentButton9" onClick="openCommentInterface(this.id)">Click to view</button>
-                <button id = "bidButton9" onClick = "sendBid(this.id)">Click to bid</button></td><!-- button should check status -->
-                <!-- should pull reviews from db-->
-            </tr>
-        </table>
-    </div> 
+
+        <?php
+        function showUnassignedPapers($unassignedList)
+        {
+        ?>
+        <form>
+            <table id="myTable">
+                <tr class="header">
+                    <th style="width:15%;">Paper Number</th>
+                    <th style="width:10%;">Paper Title</th>
+                    <th style="width:10%;">Author(s)</th>
+                    <th style="width:15%;">Status</th>
+                    <th style="width:15%;">Reviews</th>
+                </tr>
+                <?php
+                while($row = $unassignedList->fetch_assoc()) {?>
+                <tr>
+                    <td><?php echo $row['paper_id'] ?></td>
+                    <td><?php echo $row['title'] ?></td>
+                    <td><?php echo $row['author_id'] ?></td>
+                    <td><?php echo $row['paper_status'] ?></td>
+                    <td align="center">
+                    <button name="view" id = "bidButton1" onClick = "sendBid(this.id)">Click to bid</button>
+                    </td><!-- button should check status -->
+                </tr>
+                <?php } ?>
+            </table>
+        </form>
+    <?php
+        }?>
+        
+        <?php
+        function showReviewedPapers($reviewedList)
+        {
+        ?>
+            <div class="mainbox">
+            <table id="myTable">
+                <tr class="header">
+                    <th style="width:15%;">Paper Number</th>
+                    <th style="width:10%;">Paper Title</th>
+                    <th style="width:10%;">Author(s)</th>
+                    <th style="width:15%;">Status</th>
+                    <th style="width:15%;">Reviews</th>
+                </tr>
+                <?php
+                while($row = $reviewedList->fetch_assoc()) {?>
+                <tr>
+                    <td><?php echo $row['paper_id'] ?></td>
+                    <td><?php echo $row['title'] ?></td>
+                    <td><?php echo $row['author_id'] ?></td>
+                    <td><?php echo $row['paper_status'] ?></td>
+                    <td><button id = "commentButton1" onClick="openCommentInterface(this.id)">Click to view</button></td>
+                </tr>
+                <?php } ?>
+            </table>
+        </div>
+    <?php
+        }?>
+
+<?php
+        function showassignedPapers($assignedList)
+        {
+        ?>
+            <div class="mainbox">
+            <table class = "mainTable">
+                <col width="10%">
+                <col width="40%">
+                <col width="20%">
+                <col width="10%">
+                <col width="10%">
+                <tr> 
+                    <th>Paper Number</td>
+                    <th>Paper Title</td>
+                    <th>Author(s)</td>
+                    <th>Status</td> 
+                    <th>Reviews</td>
+                </tr>
+                <?php
+                while($row = $assignedList->fetch_assoc()) {?>
+                <tr>
+                    <td><?php echo $row['paper_id'] ?></td>
+                    <td><?php echo $row['title'] ?></td>
+                    <td><?php echo $row['author_id'] ?></td>
+                    <td><?php echo $row['paper_status'] ?></td>
+                    <td id = "button1div" style="visibility:hidden"><button id = "button1" onClick="openReviewInterface(this.id)">Click to review</button></td>
+                </tr>
+                <?php } ?>
+            </table>
+        </div>
+    <?php
+        }?>
     
     <div class = "modal" id = "createReview">
         <table class ="modal-content" style = "width:60%; top:25%">
@@ -348,15 +365,15 @@ function displayReviewerHomeUI(){
             popup.style.display = "block";
         }
 
-        function cancelWorkloadSubmit(){ 
-            //closes popup
-            //should clear all fields as well
-            var popup = document.getElementById("setWorkload");
-            popup.style.display = "none";
-            var workloadBox = document.getElementById("workload");
-            //clear it
-            workloadBox.value = "";
-        }
+        // function cancelWorkloadSubmit(){ 
+        //     //closes popup
+        //     //should clear all fields as well
+        //     var popup = document.getElementById("setWorkload");
+        //     popup.style.display = "none";
+        //     var workloadBox = document.getElementById("workload");
+        //     //clear it
+        //     workloadBox.value = "";
+        // }
 
         function sendBid(buttonID){
             //find paper id
@@ -375,18 +392,9 @@ function displayReviewerHomeUI(){
             popup.style.display = "none";
             //store all the data in variables and submit it
             var workloadBox = document.getElementById("workload");
-            
-            //SOME CODE HERE JIA HAO LOOK AT IT
-            // SEND DATA TO DB, 
-            //UPDATE REVIEWERS 
-            // SET workload = 
-            //WHERE ID = reviewerID  
-            //
             var workload = workloadBox.value;
 
             document.getElementById("workLoadDisplay").innerText = workload
-            //also clear it
-            workloadBox.value = "";
         }
  
         // When the user clicks anywhere outside of the modal, close it
@@ -508,254 +516,19 @@ function displayReviewerHomeUI(){
         
         function onLoadFunction(){
             //alert(123);
+            <?php
+            $session_name=(isset($_SESSION['full_name']))?$_SESSION['full_name']:'';
+            $session_id=(isset($_SESSION['user_id']))?$_SESSION['user_id']:'';?>
             var greeting = document.getElementById("userGreeting");
             //jiahao get data from DB, need to find reviewerName and reviewerID
-            reviewerName = "John Smith";
-            reviewerID = "00028373";
+            var reviewerName = '<?php echo $session_name;?>';;
+            var reviewerID = '<?php echo $session_id;?>';;
             greeting.innerText = "Hello, " + reviewerName + ", " + reviewerID;
             initialLoadTable()
-            // get workload from DB
-            var workload = 10 //testing
-            document.getElementById("workLoadDisplay").innerText = workload;
+            // // get workload from DB
+            // var workload = 10 //testing
+            // document.getElementById("workLoadDisplay").innerText = workload;
         }
-
-        function initialLoadTable(){
-            //Jiahao get data from database
-            //need paper number that matches reviewerID
-            //SELECT * from papers where reviewerID == xxxx
-            
-            //Also Load reviewerID Name and ID for top bar display
-            // store in array if possible
-            //should get PaperNumber, Title, Author(s), Status
-            //authors can just be 1 author for now.
-            var numberOfPapers = 3;
-            if (numberOfPapers > 9){
-                numberOfPapers = 9
-            }
-            showAssignedPapersButtonChanger(numberOfPapers)
-            //FOR TESTING vvvvvvvvvv
-            const paperArray1 = ["09094328", "Emails: A vector of contamination", "John Smith", "Pending Review"]
-            const paperArray2 = ["94882394", "Tomatoes: Vegetable or Fruit?", "John Smith, Ellis Snow", "Reviewed"]
-            const paperArray3 = ["00000178", "Lorem, Ipsum, Dolor", "John Smith", "Pending Review"]
-            //FOR TESTING ^^^^^^^^^^^
-            switch(numberOfPapers){
-                case 9:
-                    populate9(paperArray9);
-                case 8:
-                    populate8(paperArray8);
-                case 7:
-                    populate7(paperArray7);
-                case 6:
-                    populate6(paperArray6);
-                case 5:
-                    populate5(paperArray5);
-                case 4:
-                    populate4(paperArray4);
-                case 3:
-                    populate3(paperArray3);
-                case 2:
-                    populate2(paperArray2);
-                case 1:
-                    populate1(paperArray1);
-            }
-
-        }
-
-        function populate9(array){
-            document.getElementById("num9").innerText = array[0]
-            document.getElementById("name9").innerText = array[1]
-            document.getElementById("author9").innerText = array[2]
-            document.getElementById("status9").innerText = array[3]
-            document.getElementById("button9div").style.visibility = "visible"
-        }
-
-        function populate8(array){
-            document.getElementById("num8").innerText = array[0]
-            document.getElementById("name8").innerText = array[1]
-            document.getElementById("author8").innerText = array[2]
-            document.getElementById("status8").innerText = array[3]
-            document.getElementById("button8div").style.visibility = "visible"
-        }
-
-        function populate7(array){
-            document.getElementById("num7").innerText = array[0]
-            document.getElementById("name7").innerText = array[1]
-            document.getElementById("author7").innerText = array[2]
-            document.getElementById("status7").innerText = array[3]
-            document.getElementById("button7div").style.visibility = "visible"
-        }
-
-        function populate6(array){
-            document.getElementById("num6").innerText = array[0]
-            document.getElementById("name6").innerText = array[1]
-            document.getElementById("author6").innerText = array[2]
-            document.getElementById("status6").innerText = array[3]
-            document.getElementById("button6div").style.visibility = "visible"
-        }
-
-        function populate5(array){
-            document.getElementById("num5").innerText = array[0]
-            document.getElementById("name5").innerText = array[1]
-            document.getElementById("author5").innerText = array[2]
-            document.getElementById("status5").innerText = array[3]
-            document.getElementById("button5div").style.visibility = "visible"
-        }
-
-        function populate4(array){
-            document.getElementById("num4").innerText = array[0]
-            document.getElementById("name4").innerText = array[1]
-            document.getElementById("author4").innerText = array[2]
-            document.getElementById("status4").innerText = array[3]
-            document.getElementById("button4div").style.visibility = "visible"
-        }
-
-        function populate3(array){
-            document.getElementById("num3").innerText = array[0]
-            document.getElementById("name3").innerText = array[1]
-            document.getElementById("author3").innerText = array[2]
-            document.getElementById("status3").innerText = array[3]
-            document.getElementById("button3div").style.visibility = "visible"
-        }
-        
-        function populate2(array){
-            document.getElementById("num2").innerText = array[0]
-            document.getElementById("name2").innerText = array[1]
-            document.getElementById("author2").innerText = array[2]
-            document.getElementById("status2").innerText = array[3]
-            document.getElementById("button2div").style.visibility = "visible"
-        }
-
-        function populate1(array){
-            document.getElementById("num1").innerText = array[0]
-            document.getElementById("name1").innerText = array[1]
-            document.getElementById("author1").innerText = array[2]
-            document.getElementById("status1").innerText = array[3]
-            document.getElementById("button1div").style.visibility = "visible"
-        }
-
-
-        function showAssignedPapers(){
-            initialLoadTable();
-            //reuse initial load table function
-            //changeButtonText("Click to review")
-        }
-
-        function showReviewedPapersButtonChanger(numberOfPapers){
-            for (var i = 0; i < numberOfPapers; i++){
-                var num = i + 1
-                hideButton = "button" + num
-                hideButton2 = "bidButton" + num
-                showButton = "commentButton" + num
-                document.getElementById(hideButton).style.display = "none"
-                document.getElementById(showButton).style.display = "block"
-                document.getElementById(hideButton2).style.display = "none"
-            }
-        }
-
-        function showAssignedPapersButtonChanger(numberOfPapers){
-            for (var i = 0; i < numberOfPapers; i++){
-                    var num = i + 1
-                    showButton = "button" + num
-                    hideButton = "commentButton" + num
-                    hideButton2 = "bidButton" + num
-                    document.getElementById(hideButton).style.display = "none"
-                    document.getElementById(showButton).style.display = "block"
-                    document.getElementById(hideButton2).style.display = "none"
-                }
-        }
-
-        function showUnassignedPapersButtonChanger(numberOfPapers){
-            for (var i = 0; i < numberOfPapers; i++){
-                    var num = i + 1
-                    hideButton = "button" + num
-                    hideButton2 = "commentButton" + num
-                    showButton = "bidButton" + num
-                    document.getElementById(hideButton).style.display = "none"
-                    document.getElementById(showButton).style.display = "block"
-                    document.getElementById(hideButton2).style.display = "none"
-                }
-        }
-
-        function showReviewedPapers(){
-            //should show papers reviewed by other reviewers
-            //can reuse populate functions
-
-            //get last 9 papers from database use 
-            //SELECT * FROM papers ORDER BY ID DESC LIMIT 9 WHERE STATUS <> "Pending Review"
-            
-            var numberOfPapers = 3;
-            if (numberOfPapers > 9){
-                numberOfPapers = 9
-            }
-            
-            //FOR TESTING vvvvvvvvvv
-            const paperArray1 = ["12345678", "Goat King", "John Smith", "Reviewed"]
-            const paperArray2 = ["87322111", "Black Hat", "John Smith, Ellis Snow", "Reviewed"]
-            const paperArray3 = ["11122211", "Tomatomerde", "John Smith", "Reviewed"]
-            //FOR TESTING ^^^^^^^^^^^
-            showReviewedPapersButtonChanger(numberOfPapers)
-            switch(numberOfPapers){
-                case 9:
-                    populate9(paperArray9)
-                case 8:
-                    populate8(paperArray8)
-                case 7:
-                    populate7(paperArray7)
-                case 6:
-                    populate6(paperArray6)
-                case 5:
-                    populate5(paperArray5)
-                case 4:
-                    populate4(paperArray4)
-                case 3:
-                    populate3(paperArray3)
-                case 2:
-                    populate2(paperArray2)
-                case 1:
-                    populate1(paperArray1)
-            }
-            //also change all buttons to click to view instead of review
-            //changeButtonText("Click to view")
-        }
-
-        
-
-        function showUnassignedPapers(){
-            //get COUNT of unreviewed papers (status = pending review)
-            var numberOfPapers = 3; //echo it into this var
-            if (numberOfPapers > 9){
-                numberOfPapers = 9
-            }
-            //FOR TESTING vvvvvvvvvv
-            const paperArray1 = ["12345678", "Tomato King", "John Smith", "Pending Review"]
-            const paperArray2 = ["87322111", "Black Hat", "John Smith, Ellis Snow", "Pending Review"]
-            const paperArray3 = ["11122211", "Goating!", "John Smith", "Pending Review"]
-            //FOR TESTING ^^^^^^^^^^^
-            showUnassignedPapersButtonChanger(numberOfPapers)
-            switch(numberOfPapers){
-                case 9:
-                    populate9(paperArray9)
-                case 8:
-                    populate8(paperArray8)
-                case 7:
-                    populate7(paperArray7)
-                case 6:
-                    populate6(paperArray6)
-                case 5:
-                    populate5(paperArray5)
-                case 4:
-                    populate4(paperArray4)
-                case 3:
-                    populate3(paperArray3)
-                case 2:
-                    populate2(paperArray2)
-                case 1:
-                    populate1(paperArray1)
-
-            //changeButtonText("Click to Bid")
-            }
-        }
-
     </script>
     
 </body>
