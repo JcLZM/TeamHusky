@@ -131,7 +131,7 @@ function displayAuthorHomeUI()
 
                     <table class="modal-content">
                         <tr>
-                        <td><input type="text" name="userid" value="<?php echo $_SESSION['user_id']; ?>"></td>
+                        <td><input type="hidden" name="userid" value="<?php echo $_SESSION['user_id']; ?>"></td>
                         </tr>
                         <tr>
                             <td>Title:</td>
