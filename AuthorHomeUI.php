@@ -18,7 +18,7 @@ function displayAuthorHomeUI()
                 <!-- jiahao -->
 
             </span>
-            <span id="userGreeting">Hello, AUTHORNAME, AUTHORID</span>
+            <span id="userGreeting">Hello, authorName, authorID</span>
 
             <!-- should load from db??-->
 
@@ -131,12 +131,11 @@ function displayAuthorHomeUI()
 
                     <table class="modal-content">
                         <tr>
-                            <td>Paper ID:</td>
-                            <td><input style=width:500px type="text" name="paper_id"></td>
+                        <td><input type="text" name="userid" value="<?php echo $_SESSION['user_id']; ?>"></td>
                         </tr>
                         <tr>
-                            <td>Author ID:</td>
-                            <td><input style=width:500px type="text" name="author_id"></td>
+                            <td>Title:</td>
+                            <td><input style=width:500px type="text" name="title"></td>
                         </tr>
                         <tr>
                             <td>Content:</td>

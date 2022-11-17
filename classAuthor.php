@@ -2,11 +2,11 @@
 include 'classUser.php';
 class Author extends User
 {   
-    public function author_submit_paper($author_id, $title, $content)
+    public function author_submit_paper($authorid, $title, $content, $paper_status)
     {
         $conn = OpenCon();
-        $query = "INSERT INTO papers (author_id, title, content, paper_status) 
-        VALUES('$author_id', '$title', '$content', 'Review Pending')";
+        $query = "INSERT INTO papers (author_id, reviewer_id, review_id, title, content, paper_status) 
+        VALUES('$authorid', NULL, NULL, '$title', '$content', '$paper_status')";
         $result = mysqli_query($conn, $query) or die(mysqli_connect_errno() . "Submission unsuccessful");
         return $result; // If successful, returns 1 row
     }
