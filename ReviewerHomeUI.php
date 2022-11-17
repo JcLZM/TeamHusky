@@ -561,6 +561,19 @@ function displayReviewerHomeUI(){
 
         }
 
+        function populate(array, num){
+            var field1 = "num" + num
+            var field2 = "name" + num
+            var field3 = "author" + num
+            var field4 = "status" + num
+            var field5 = "button" + num + "div"
+            document.getElementById(field1).innerText = array[0]
+            document.getElementById(field2).innerText = array[1]
+            document.getElementById(field3).innerText = array[2]
+            document.getElementById(field4).innerText = array[3]
+            document.getElementById(field5).style.visibility = "visible"
+        }
+
         function populate9(array){
             document.getElementById("num9").innerText = array[0]
             document.getElementById("name9").innerText = array[1]
